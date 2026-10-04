@@ -1,0 +1,38 @@
+name: Publish to MCP Registry
+
+# Manual only. Do not run until the server version in server.json is live
+# at https://docs.blockvectra.com/mcp.
+on:
+  workflow_dispatch:
+    inputs:
+      auth_method:
+        description: "Domain proof used for com.blockvectra (DNS TXT on the apex, or /.well-known/mcp-registry-auth)"
+        type: choice
+        options:
+          - dns
+          - http
+        default: dns
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # The Ed25519 private key lives only in this environment's secrets.
+    environment: mcp-registry-publish
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Authenticate to MCP Registry
+        env:
+          MCP_PRIVATE_KEY: ${{ secrets.MCP_PRIVATE_KEY }}
+          AUTH_METHOD: ${{ inputs.auth_method }}
+        run: ./mcp-publisher login "$AUTH_METHOD" --domain blockvectra.com --private-key "$MCP_PRIVATE_KEY"
+
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish

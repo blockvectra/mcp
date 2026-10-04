@@ -1,0 +1,26 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.blockvectra/docs",
+  "title": "BlockVectra: multi-chain RPC & Data API",
+  "description": "Keyless multi-chain EVM JSON-RPC, indexed Data API, docs, CU pricing and status. API key optional.",
+  "version": "1.2.0",
+  "websiteUrl": "https://blockvectra.com/en/agents/",
+  "repository": {
+    "url": "https://github.com/blockvectra/mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://docs.blockvectra.com/mcp",
+      "headers": [
+        {
+          "name": "x-api-key",
+          "description": "Optional BlockVectra API key. Without it the docs, chains, pricing and status tools and the public JSON-RPC endpoint still work.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
