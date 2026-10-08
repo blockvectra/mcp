@@ -1,0 +1,17 @@
+{
+  "name": "blockvectra-docs",
+  "version": "1.2.0",
+  "description": "Chains, methods, pricing, status and docs for developers and AI agents, plus keyless read-only JSON-RPC calls.",
+  "author": {
+    "name": "BlockVectra"
+  },
+  "homepage": "https://blockvectra.com/en/agents/",
+  "repository": "https://github.com/blockvectra/mcp",
+  "keywords": [
+    "mcp",
+    "blockchain",
+    "json-rpc",
+    "data-api"
+  ],
+  "mcpServers": ".mcp.json"
+}
