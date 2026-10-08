@@ -18,7 +18,7 @@
 
 ## 工具
 
-下表对应当前线上 `https://docs.blockvectra.com/mcp`（`serverInfo` 为 `blockvectra-docs` 1.0.0）。以 `tools/list` 返回为准。
+下表对应当前线上 `https://docs.blockvectra.com/mcp`。以 `tools/list` 返回为准。
 
 | 工具 | 作用 | API key | 读 / 写 |
 | --- | --- | --- | --- |
@@ -32,12 +32,17 @@
 | `get_method_info` | JSON-RPC 方法在各链的可用性、CU 权重与价格 | 不需要 | 只读 |
 | `explain_error` | 查询错误码或原因：是否计费、能否重试、建议动作 | 不需要 | 只读 |
 | `how_to_get_api_key` | 获取 API key 的步骤（程序化 SIWE 注册或浏览器交接）及认证头格式 | 不需要 | 只读 |
-| `rpc_call` | 在某条链上执行 JSON-RPC 2.0 方法 | 可选：无 key 时仅使用该链的免 key 公开端点（若有） | 可写（`destructiveHint: true`） |
+| `rpc_call` | 在某条链上执行只读 JSON-RPC 2.0 方法 | 可选：无 key 时仅使用该链的免 key 公开端点（若有） | 只读 |
 | `data_api_get` | 查询某条链的 Data API 路径 | 必需 | 只读 |
 | `get_account` | 当前 key 的余额、CU 与限速（`GET /v1/account`） | 必需 | 只读 |
 | `get_deposit_address` | 账户专属链上充值地址与开放网络 | 必需 | 只读 |
+| `send_raw_transaction` | 在某条链上广播已签名的原始交易 | 可选：免 key 调用取决于该链公开方法策略 | 可写（`destructiveHint: true`） |
 
 说明：需要 key 的工具在没有 key 时会返回错误，并指向 `how_to_get_api_key`。
+
+## 在 Cursor / Cline 中使用
+
+免 key 的 Cursor 配置见 [`.mcp.json`](.mcp.json)，由 [Cursor 插件清单](.cursor-plugin/plugin.json) 引用。Cline 的 Streamable HTTP 安装步骤及可选 `x-api-key` 请求头配置见 [llms-install.md](llms-install.md)（英文）。首次连接不填 headers，先调用 `list_chains`，再以 `{"path":"quickstart","lang":"en"}` 调用 `read_doc`。
 
 ## 接入客户端
 
@@ -64,8 +69,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 {
   "mcpServers": {
     "blockvectra": {
-      "url": "https://docs.blockvectra.com/mcp",
-      "headers": { "x-api-key": "<你的 key，可选>" }
+      "url": "https://docs.blockvectra.com/mcp"
     }
   }
 }

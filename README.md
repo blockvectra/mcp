@@ -18,7 +18,7 @@ More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) an
 
 ## Tools
 
-This table reflects the server currently live at `https://docs.blockvectra.com/mcp` (`serverInfo` `blockvectra-docs` 1.0.0). Call `tools/list` for the authoritative list.
+This table reflects the server currently live at `https://docs.blockvectra.com/mcp`. Call `tools/list` for the authoritative list.
 
 | Tool | What it does | API key | Read / write |
 | --- | --- | --- | --- |
@@ -32,12 +32,17 @@ This table reflects the server currently live at `https://docs.blockvectra.com/m
 | `get_method_info` | Per-chain availability, CU weight and price of a JSON-RPC method | not needed | read-only |
 | `explain_error` | Look up an error code or reason: billing, retryability, recommended action | not needed | read-only |
 | `how_to_get_api_key` | Steps to get an API key (programmatic SIWE sign-up or browser handoff) and the auth header formats | not needed | read-only |
-| `rpc_call` | Execute a JSON-RPC 2.0 method on a chain | optional: without a key only the chain's keyless public endpoint is used, where available | can write (`destructiveHint: true`) |
+| `rpc_call` | Execute a read-only JSON-RPC 2.0 method on a chain | optional: without a key only the chain's keyless public endpoint is used, where available | read-only |
 | `data_api_get` | Query the Data API for a chain and path | required | read-only |
 | `get_account` | Balance, CU and rate limits of your API key (`GET /v1/account`) | required | read-only |
 | `get_deposit_address` | Your account's on-chain deposit address and open networks | required | read-only |
+| `send_raw_transaction` | Broadcast an already signed raw transaction on a chain | optional: keyless access depends on the chain's public method policy | write (`destructiveHint: true`) |
 
 Note: `get_deposit_address` and the other keyed tools return an error that points to `how_to_get_api_key` when called without a key.
+
+## Use in Cursor / Cline
+
+The keyless Cursor configuration is in [`.mcp.json`](.mcp.json), referenced by the [Cursor plugin manifest](.cursor-plugin/plugin.json). For Cline's Streamable HTTP setup and optional `x-api-key` headers, follow [llms-install.md](llms-install.md). Start without headers: call `list_chains`, then `read_doc` with `{"path":"quickstart","lang":"en"}`.
 
 ## Connect a client
 
@@ -64,8 +69,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 {
   "mcpServers": {
     "blockvectra": {
-      "url": "https://docs.blockvectra.com/mcp",
-      "headers": { "x-api-key": "<your key, optional>" }
+      "url": "https://docs.blockvectra.com/mcp"
     }
   }
 }
