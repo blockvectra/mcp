@@ -1,0 +1,20 @@
+{
+  "name": "blockvectra-docs",
+  "version": "1.2.0",
+  "description": "BlockVectra docs MCP server (chains, methods, pricing, status, docs, keyless read-only JSON-RPC) plus the blockvectra-rpc agent skill.",
+  "author": {
+    "name": "BlockVectra"
+  },
+  "homepage": "https://blockvectra.com/en/agents/",
+  "repository": "https://github.com/blockvectra/mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "blockchain",
+    "json-rpc",
+    "data-api"
+  ],
+  "dependencies": [
+    "blockvectra-rpc"
+  ]
+}

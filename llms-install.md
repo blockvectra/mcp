@@ -14,7 +14,7 @@ Alternatively, open **Configure → Configure MCP Servers** and merge this entry
 ```json
 {
   "mcpServers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "type": "streamableHttp",
       "url": "https://docs.blockvectra.com/mcp"
     }
@@ -48,7 +48,7 @@ For example, the Cline entry becomes:
 ```json
 {
   "mcpServers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "type": "streamableHttp",
       "url": "https://docs.blockvectra.com/mcp",
       "headers": {
