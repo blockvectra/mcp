@@ -1,0 +1,23 @@
+{
+  "name": "blockvectra",
+  "description": "BlockVectra plugins for AI agents: docs MCP server and the blockvectra-rpc skill.",
+  "owner": {
+    "name": "BlockVectra"
+  },
+  "plugins": [
+    {
+      "name": "blockvectra-docs",
+      "source": "./",
+      "description": "BlockVectra docs MCP server (keyless, HTTP) and, through its dependency, the blockvectra-rpc skill."
+    },
+    {
+      "name": "blockvectra-rpc",
+      "source": {
+        "source": "github",
+        "repo": "blockvectra/skills"
+      },
+      "description": "Agent skill for BlockVectra: keyless EVM JSON-RPC, Data API, programmatic sign-up, pricing and top-up.",
+      "skills": ["./"]
+    }
+  ]
+}

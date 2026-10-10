@@ -1,8 +1,24 @@
 # BlockVectra MCP server
 
-Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [BlockVectra](https://blockvectra.com/en/agents/?ref=gh-mcp): keyless multi-chain EVM JSON-RPC, the indexed Data API, documentation, pricing and status, for AI agents.
+Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [BlockVectra](https://blockvectra.com/en/agents/?ref=gh-mcp): keyless multi-chain EVM JSON-RPC, indexed Data API, docs, CU pricing and status. API key optional.
 
 [中文](README.zh.md)
+
+## Install in one step
+
+Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
+
+| Client | One-line install | Source |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Claude Code plugin (MCP server + `blockvectra-rpc` skill) | `/plugin marketplace add blockvectra/mcp`, then `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces), [Plugin dependencies](https://code.claude.com/docs/en/plugins/dependencies) |
+| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
+| VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
+
+The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
+
+The plugin is described by [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json). It installs the `blockvectra` MCP server from [`.mcp.json`](.mcp.json) and, as a dependency, the `blockvectra-rpc` skill from [blockvectra/skills](https://github.com/blockvectra/skills).
 
 - **Endpoint:** `https://docs.blockvectra.com/mcp` (Streamable HTTP, stateless)
 - **Auth:** optional `x-api-key` header (a BlockVectra API key). `Authorization: Bearer <key>` is also accepted. Without a key you can use the documentation, chain, pricing and status tools, and the JSON-RPC methods that a chain's public endpoint allows.
@@ -68,7 +84,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 ```json
 {
   "mcpServers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "url": "https://docs.blockvectra.com/mcp"
     }
   }
@@ -80,7 +96,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 ```json
 {
   "servers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "type": "http",
       "url": "https://docs.blockvectra.com/mcp"
     }

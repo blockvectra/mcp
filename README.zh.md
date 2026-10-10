@@ -4,6 +4,17 @@
 
 [English](README.md)
 
+## 一行接入
+
+服务器地址（Streamable HTTP，无需 key）：`https://docs.blockvectra.com/mcp`
+
+| 客户端 | 一行命令 / 链接 | 出处 |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Claude Code 插件（MCP 服务器 + `blockvectra-rpc` 技能） | `/plugin marketplace add blockvectra/mcp`，然后 `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces) |
+| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
+
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
 - **切勿**把 API key 或私钥写进工具参数或聊天；服务器只从 HTTP 请求头读取 key。
@@ -68,7 +79,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 ```json
 {
   "mcpServers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "url": "https://docs.blockvectra.com/mcp"
     }
   }
@@ -80,7 +91,7 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --h
 ```json
 {
   "servers": {
-    "blockvectra": {
+    "blockvectra-docs": {
       "type": "http",
       "url": "https://docs.blockvectra.com/mcp"
     }
