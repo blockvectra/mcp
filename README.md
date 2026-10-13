@@ -4,6 +4,35 @@ Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [Blo
 
 [中文](README.zh.md)
 
+## Local stdio bridge (npm package not yet published)
+
+This checkout prepares `@blockvectra/mcp` version `0.1.0` under MIT. It is not yet published to npm; do not assume an `npx` installation is available. Use Node.js 22 or newer and run from this checkout:
+
+```bash
+npm ci
+```
+
+Configure a stdio client with the absolute source path (replace `/absolute/path/to/mcp` with your checkout):
+
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs": {
+      "command": "node",
+      "args": ["/absolute/path/to/mcp/src/cli.js"]
+    }
+  }
+}
+```
+
+The CLI always bridges to `https://docs.blockvectra.com/mcp`; it accepts no command-line arguments. Optionally supply `BLOCKVECTRA_API_KEY` through the child process environment or your client's private environment settings. It is forwarded only as `x-api-key`. Never put a key in CLI arguments, tool arguments, or chat; never supply private keys.
+
+The bridge connects the official `StreamableHTTPClientTransport` and `StdioServerTransport` directly, without rebuilding capabilities or tools. It preserves initialize parameters/results, capabilities, instructions, protocolVersion, tool results, JSON-RPC errors, notifications and bidirectional requests at the JSON message level (not byte formatting). After a successful initialize response, it sets the HTTP transport's negotiated protocol version before forwarding that response. stdout contains MCP messages only; stderr uses fixed diagnostics without SDK error text. EOF, SIGINT and SIGTERM close both transports; transport failures close the bridge with exit code 1. HTTP/SSE behavior, parsing and reconnection remain SDK behavior.
+
+Dependencies are pinned to official `@modelcontextprotocol/client` and `@modelcontextprotocol/server` **2.3.1**, whose published package exports and source provide these transports and require Node >=20. See the [official SDK repository/releases](https://github.com/modelcontextprotocol/typescript-sdk/releases) and [connection documentation](https://ts.sdk.modelcontextprotocol.io/v2/clients/connect). As of 2026-10-13, [Node's official release table](https://nodejs.org/en/about/previous-releases) lists Node 20 as EOL and Node 22 as LTS, so this package requires **Node >=22**.
+
+Local verification: `npm test` runs only the serial mock HTTP/real stdio subprocess tests; `npm pack --dry-run` checks the package contents. No build is required.
+
 ## Install in one step
 
 Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
@@ -75,8 +104,8 @@ Each snippet below follows the client's own documentation. Add the optional key 
 
 ```bash
 claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
-# with an API key
-claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp --header "x-api-key: $BLOCKVECTRA_API_KEY"
+# For an optional key, use private environment-backed header settings;
+# see the Codex env_http_headers example below. Never pass a key as a CLI argument.
 ```
 
 ### Cursor (`mcp.json`)
