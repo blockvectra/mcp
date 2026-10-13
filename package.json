@@ -1,0 +1,20 @@
+{
+  "name": "@blockvectra/mcp",
+  "version": "0.1.0",
+  "description": "BlockVectra MCP stdio bridge for multi-chain EVM JSON-RPC, Data API and docs",
+  "repository": { "type": "git", "url": "git+https://github.com/blockvectra/mcp.git" },
+  "homepage": "https://github.com/blockvectra/mcp#readme",
+  "bugs": { "url": "https://github.com/blockvectra/mcp/issues" },
+  "keywords": ["mcp", "model-context-protocol", "blockvectra", "evm", "json-rpc", "stdio"],
+  "type": "module",
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "engines": { "node": ">=22" },
+  "bin": { "blockvectra-mcp": "src/cli.js" },
+  "files": ["src/", "README.zh.md", "LICENSE"],
+  "scripts": { "test": "node --test --test-concurrency=1 test/bridge.test.js" },
+  "dependencies": {
+    "@modelcontextprotocol/client": "2.3.1",
+    "@modelcontextprotocol/server": "2.3.1"
+  }
+}
