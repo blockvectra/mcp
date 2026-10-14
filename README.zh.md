@@ -4,6 +4,12 @@
 
 [English](README.md)
 
+## Robinhood Chain testnet 任务导航
+
+阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)、[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)或[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)。
+
+连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
+
 ## 本地 stdio 桥接（npm 包尚未发布）
 
 当前源码准备的是 MIT 许可的 `@blockvectra/mcp` **0.1.0**，尚未发布到 npm，不应假设已经可以通过 `npx` 安装。使用 Node.js 22 或更高版本，在当前 checkout 执行：
