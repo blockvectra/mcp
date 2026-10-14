@@ -4,6 +4,12 @@ Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [Blo
 
 [中文](README.zh.md)
 
+## Robinhood Chain testnet tasks
+
+Read the [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/), [faucet guide](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/), or [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain/).
+
+Connect to `https://docs.blockvectra.com/mcp` without headers for documentation and discovery. Robinhood Chain public endpoints allow supported RPC reads without a key; methods outside the public policy require an API key. Faucet claims require `x-api-key`. HTTP `202` means accepted; check the transaction receipt for on-chain inclusion (`status: "0x1"`), which is not finality.
+
 ## Local stdio bridge (npm package not yet published)
 
 This checkout prepares `@blockvectra/mcp` version `0.1.0` under MIT. It is not yet published to npm; do not assume an `npx` installation is available. Use Node.js 22 or newer and run from this checkout:
