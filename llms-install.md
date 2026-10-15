@@ -30,6 +30,23 @@ For Cursor, merge the server definition from [`.mcp.json`](.mcp.json) into `.cur
 
 For other clients, add the same endpoint using their Streamable HTTP transport and leave authentication headers empty for the first connection. Transport field names vary by client; the Cline `type` value is specific to Cline.
 
+## Local stdio clients
+
+For a client that uses a local stdio command, install Node.js 22 or newer and use the published bridge:
+
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs": {
+      "command": "npx",
+      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+    }
+  }
+}
+```
+
+The command connects to the same hosted endpoint; it does not run a local blockchain node. Documentation and discovery need no key. For keyed tools, set `BLOCKVECTRA_API_KEY` in the child process environment or your client's private environment settings. The bridge forwards it as `x-api-key`; keep the value out of command-line arguments, tool arguments, and chat.
+
 ## Verify the keyless connection
 
 Ask the agent to perform these calls in order:
