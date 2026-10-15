@@ -10,26 +10,28 @@
 
 连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
 
-## 本地 stdio 桥接（npm 包尚未发布）
+## 本地 stdio 桥接
 
-当前源码准备的是 MIT 许可的 `@blockvectra/mcp` **0.1.0**，尚未发布到 npm，不应假设已经可以通过 `npx` 安装。使用 Node.js 22 或更高版本，在当前 checkout 执行：
+使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
 
 ```bash
-npm ci
+npx --yes @blockvectra/mcp@0.1.0
 ```
 
-为 stdio 客户端配置源码绝对路径（将 `/absolute/path/to/mcp` 替换为实际 checkout）：
+为 stdio 客户端配置：
 
 ```json
 {
   "mcpServers": {
     "blockvectra-docs": {
-      "command": "node",
-      "args": ["/absolute/path/to/mcp/src/cli.js"]
+      "command": "npx",
+      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
     }
   }
 }
 ```
+
+使用源码 checkout 时，先运行 `npm ci`，然后改用 `node` 和 `src/cli.js` 的绝对路径。
 
 CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参数。可选地通过子进程环境或客户端的私有环境配置提供 `BLOCKVECTRA_API_KEY`，仅转发为 `x-api-key` 请求头。绝不将 key 放进 CLI 参数、工具参数或聊天，也不要提供私钥。
 
