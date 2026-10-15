@@ -15,7 +15,7 @@ Connect to `https://docs.blockvectra.com/mcp` without headers for documentation 
 Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
 
 ```bash
-npx --yes @blockvectra/mcp@0.1.0
+npx --yes @blockvectra/mcp@0.1.1
 ```
 
 Configure a stdio client:
@@ -25,7 +25,7 @@ Configure a stdio client:
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+      "args": ["--yes", "@blockvectra/mcp@0.1.1"]
     }
   }
 }

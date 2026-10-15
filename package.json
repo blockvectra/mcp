@@ -1,6 +1,7 @@
 {
   "name": "@blockvectra/mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "com.blockvectra/docs",
   "description": "BlockVectra MCP stdio bridge for multi-chain EVM JSON-RPC, Data API and docs",
   "repository": { "type": "git", "url": "git+https://github.com/blockvectra/mcp.git" },
   "homepage": "https://github.com/blockvectra/mcp#readme",
