@@ -10,26 +10,28 @@ Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain
 
 Connect to `https://docs.blockvectra.com/mcp` without headers for documentation and discovery. Robinhood Chain public endpoints allow supported RPC reads without a key; methods outside the public policy require an API key. Faucet claims require `x-api-key`. HTTP `202` means accepted; check the transaction receipt for on-chain inclusion (`status: "0x1"`), which is not finality.
 
-## Local stdio bridge (npm package not yet published)
+## Local stdio bridge
 
-This checkout prepares `@blockvectra/mcp` version `0.1.0` under MIT. It is not yet published to npm; do not assume an `npx` installation is available. Use Node.js 22 or newer and run from this checkout:
+Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
 
 ```bash
-npm ci
+npx --yes @blockvectra/mcp@0.1.0
 ```
 
-Configure a stdio client with the absolute source path (replace `/absolute/path/to/mcp` with your checkout):
+Configure a stdio client:
 
 ```json
 {
   "mcpServers": {
     "blockvectra-docs": {
-      "command": "node",
-      "args": ["/absolute/path/to/mcp/src/cli.js"]
+      "command": "npx",
+      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
     }
   }
 }
 ```
+
+For a source checkout, run `npm ci`, then use `node` with the absolute path to `src/cli.js` instead.
 
 The CLI always bridges to `https://docs.blockvectra.com/mcp`; it accepts no command-line arguments. Optionally supply `BLOCKVECTRA_API_KEY` through the child process environment or your client's private environment settings. It is forwarded only as `x-api-key`. Never put a key in CLI arguments, tool arguments, or chat; never supply private keys.
 
