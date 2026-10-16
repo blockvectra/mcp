@@ -39,7 +39,7 @@ For a client that uses a local stdio command, install Node.js 22 or newer and us
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+      "args": ["--yes", "@blockvectra/mcp@0.1.1"]
     }
   }
 }

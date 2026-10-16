@@ -15,7 +15,7 @@
 使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
 
 ```bash
-npx --yes @blockvectra/mcp@0.1.0
+npx --yes @blockvectra/mcp@0.1.1
 ```
 
 为 stdio 客户端配置：
@@ -25,7 +25,7 @@ npx --yes @blockvectra/mcp@0.1.0
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+      "args": ["--yes", "@blockvectra/mcp@0.1.1"]
     }
   }
 }
