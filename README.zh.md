@@ -1,6 +1,6 @@
 # BlockVectra MCP 服务器
 
-[BlockVectra](https://blockvectra.com/zh/agents/?ref=gh-mcp) 的远程 [Model Context Protocol](https://modelcontextprotocol.io) 服务器：免 key 的多链 EVM JSON-RPC、已索引的 Data API、文档、价格与状态，面向 AI Agent。
+[BlockVectra](https://blockvectra.com/zh/agents/?ref=gh-mcp) 的远程 [Model Context Protocol](https://modelcontextprotocol.io) 服务器，面向 AI Agent 提供多链 EVM JSON-RPC、已索引 Data API、文档、价格与状态。文档、服务发现、价格与状态无需 API key；RPC 是否可免 key 使用取决于各链公共方法策略，已索引 Data API 与账户工具需要你自己的 BlockVectra API key。
 
 [English](README.md)
 
