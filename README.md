@@ -1,6 +1,6 @@
 # BlockVectra MCP server
 
-Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [BlockVectra](https://blockvectra.com/en/agents/?ref=gh-mcp): keyless multi-chain EVM JSON-RPC, indexed Data API, docs, CU pricing and status. API key optional.
+Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [BlockVectra](https://blockvectra.com/en/agents/?ref=gh-mcp): multi-chain EVM JSON-RPC, indexed Data API, docs, CU pricing and status. Documentation, discovery, pricing and status need no API key. Keyless RPC depends on each chain's public method policy; indexed Data API and account tools require your own BlockVectra API key.
 
 [中文](README.zh.md)
 
