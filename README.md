@@ -52,7 +52,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
-| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
+| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 
 The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
 
