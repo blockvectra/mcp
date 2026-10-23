@@ -52,6 +52,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
+| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 
 The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
 
@@ -68,6 +69,14 @@ Chains, prices and limits change, so this README does not list them. Read them l
 - Service status: `GET https://api.blockvectra.com/v1/status`
 
 More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) and [AI agents guide](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp).
+
+## Gemini CLI extension
+
+The extension connects to `https://docs.blockvectra.com/mcp` directly over remote Streamable HTTP. You do not need the local stdio bridge or npm.
+
+After installing, restart Gemini CLI and run `/mcp` to inspect the available tools. Try `list_chains`, then call `read_doc` with `path=quickstart` and `lang=en`.
+
+Without headers, documentation, discovery, pricing and status are keyless; RPC follows each chain's public method policy, and indexed data and account tools need your own BlockVectra API key. For authentication, follow the client's official configuration for private custom headers.
 
 ## Tools
 
