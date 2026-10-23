@@ -1,0 +1,10 @@
+{
+  "name": "blockvectra",
+  "version": "0.1.0",
+  "description": "Multi-chain EVM RPC and indexed data for AI agents: keyless docs and discovery, RPC under each chain's public policy, and keyed data and account tools.",
+  "mcpServers": {
+    "blockvectra-docs": {
+      "httpUrl": "https://docs.blockvectra.com/mcp"
+    }
+  }
+}

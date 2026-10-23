@@ -51,6 +51,7 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 | Claude Code 插件（MCP 服务器 + `blockvectra-rpc` 技能） | `/plugin marketplace add blockvectra/mcp`，然后 `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces) |
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
+| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
@@ -63,6 +64,14 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 - 服务状态：`GET https://api.blockvectra.com/v1/status`
 
 更多：[BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp)、[AI Agent 接入指南](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp)（英文）。
+
+## Gemini CLI 扩展
+
+扩展通过远程 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp`，不需要本地 stdio 桥接或 npm。
+
+安装后重启 Gemini CLI，运行 `/mcp` 查看可用工具。先调用 `list_chains`，再用 `read_doc` 传入 `path=quickstart`、`lang=zh` 试读文档。
+
+默认不添加请求头时，文档、发现、价格与状态无需 key；RPC 取决于各链公共方法策略，已索引数据和账户工具需要你自己的 BlockVectra API key。认证方式请遵循客户端官方文档中的私有请求头配置。
 
 ## 工具
 
