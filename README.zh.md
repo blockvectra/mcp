@@ -71,7 +71,26 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 安装后重启 Gemini CLI，运行 `/mcp` 查看可用工具。先调用 `list_chains`，再用 `read_doc` 传入 `path=quickstart`、`lang=zh` 试读文档。
 
-默认不添加请求头时，文档、发现、价格与状态无需 key；RPC 取决于各链公共方法策略，已索引数据和账户工具需要你自己的 BlockVectra API key。认证方式请遵循客户端官方文档中的私有请求头配置。
+### 可选认证
+
+扩展默认无需 key：文档、发现、价格与状态保持免 key；RPC 是否免 key 取决于各链公共方法策略；已索引数据和账户工具需要你自己的 BlockVectra API key。不要把 key 放进 argv、工具参数、聊天或版本控制，也不要在 shell 历史中导出真实 key。请在启动 Gemini 前，通过现有的私有 secret manager 或私有启动环境，让 `BLOCKVECTRA_API_KEY` 出现在 Gemini 的进程环境中；仅放在 `.gemini/.env` 不足以保证生效。
+
+如需通过请求头提供 key，请把下面的配置合并进用户级 `~/.gemini/settings.json`，不要覆盖其他设置：
+
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs": {
+      "httpUrl": "https://docs.blockvectra.com/mcp",
+      "headers": { "x-api-key": "${BLOCKVECTRA_API_KEY}" }
+    }
+  }
+}
+```
+
+该用户级配置会覆盖扩展中同名的服务器。配置后重启 Gemini CLI。`gemini mcp list` 或 `/mcp` 只检查连通性，不代表账户或数据授权成功；如需确认认证，请主动调用只读的 `get_account`，并妥善保密返回的账户数据。
+
+已用官方 Gemini CLI 0.65.0 配合本地 mock 与合成 key 验证；这验证的是客户端配置和请求头传递，不代表真实 key 的工具调用验证。参见 [Gemini CLI MCP 自定义请求头](https://geminicli.com/docs/tools/mcp-server/#http-based-mcp-server-with-custom-headers)。
 
 ## 工具
 

@@ -76,7 +76,26 @@ The extension connects to `https://docs.blockvectra.com/mcp` directly over remot
 
 After installing, restart Gemini CLI and run `/mcp` to inspect the available tools. Try `list_chains`, then call `read_doc` with `path=quickstart` and `lang=en`.
 
-Without headers, documentation, discovery, pricing and status are keyless; RPC follows each chain's public method policy, and indexed data and account tools need your own BlockVectra API key. For authentication, follow the client's official configuration for private custom headers.
+### Optional authentication
+
+The extension is keyless by default: documentation, discovery, pricing and status stay keyless; RPC follows each chain's public method policy; indexed data and account tools need your own BlockVectra API key. Never put a key in argv, tool arguments, chat or version control, and do not export a literal key into shell history. Make `BLOCKVECTRA_API_KEY` available in Gemini's process environment before launch, using your existing private secret manager or private launch environment; a `.gemini/.env` file alone is not sufficient.
+
+To send the key as a header, merge this into your user `~/.gemini/settings.json` without replacing other settings:
+
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs": {
+      "httpUrl": "https://docs.blockvectra.com/mcp",
+      "headers": { "x-api-key": "${BLOCKVECTRA_API_KEY}" }
+    }
+  }
+}
+```
+
+This user-scope entry overrides the extension's server of the same name. Restart Gemini CLI after configuring it. `gemini mcp list` or `/mcp` only checks connectivity, not successful account or data authorization; to verify authentication, intentionally call the read-only `get_account` tool and keep the returned account data private.
+
+Tested with official Gemini CLI 0.65.0 against a local mock with a synthetic key; this verifies client configuration and header transmission, not live keyed tool behavior. See [Gemini CLI MCP custom headers](https://geminicli.com/docs/tools/mcp-server/#http-based-mcp-server-with-custom-headers).
 
 ## Tools
 
