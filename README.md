@@ -53,6 +53,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
+| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity plugins](https://www.antigravity.google/docs/plugins?tab=cli) |
 
 The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
 
@@ -96,6 +97,14 @@ To send the key as a header, merge this into your user `~/.gemini/settings.json`
 This user-scope entry overrides the extension's server of the same name. Restart Gemini CLI after configuring it. `gemini mcp list` or `/mcp` only checks connectivity, not successful account or data authorization; to verify authentication, intentionally call the read-only `get_account` tool and keep the returned account data private.
 
 Tested with official Gemini CLI 0.65.0 against a local mock with a synthetic key; this verifies client configuration and header transmission, not live keyed tool behavior. See [Gemini CLI MCP custom headers](https://geminicli.com/docs/tools/mcp-server/#http-based-mcp-server-with-custom-headers).
+
+## Antigravity plugin
+
+The plugin connects to `https://docs.blockvectra.com/mcp` directly over remote Streamable HTTP. You do not need the local stdio bridge or npm.
+
+After installing, restart Antigravity and run `/mcp` to inspect the available tools. Try `list_chains`, then call `read_doc` with `path=quickstart` and `lang=en`.
+
+The plugin is keyless by default: documentation, discovery, pricing and status stay keyless; RPC follows each chain's public method policy; indexed data and account tools need your own BlockVectra API key. Never put a key in tool arguments, chat or version control. To send a key, configure it as a private header in your client, following [MCP in Antigravity](https://www.antigravity.google/docs/mcp/) and your client's private header settings.
 
 ## Tools
 
