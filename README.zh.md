@@ -97,6 +97,22 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 插件通过远程 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp`，不需要本地 stdio 桥接或 npm。
 
+### 安装到当前项目
+
+在项目根目录运行：
+
+```bash
+mkdir -p .agents/plugins/blockvectra-docs
+curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigravity-v0.1.0/plugin.json --output .agents/plugins/blockvectra-docs/plugin.json
+curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigravity-v0.1.0/mcp_config.json --output .agents/plugins/blockvectra-docs/mcp_config.json
+```
+
+在该目录启动 `agy`。首次检查可让它以 `{"query":"Antigravity","lang":"en","limit":1}` 调用 `search_docs`。项目内加载和这一次免 key 文档搜索已用 Antigravity CLI 1.4.7 实测通过。
+
+[官方插件指南](https://www.antigravity.google/docs/plugins/)介绍了项目级和全局安装。上面的命令把插件放在当前项目的 `.agents/plugins/` 目录中。
+
+### 安装后使用
+
 安装后重启 Antigravity，运行 `/mcp` 查看可用工具。先调用 `list_chains`，再以 `path=quickstart`、`lang=zh` 调用 `read_doc`。
 
 插件默认无需 key：文档、发现、价格与状态保持免 key；RPC 是否免 key 取决于各链公共方法策略；已索引数据和账户工具需要你自己的 BlockVectra API key。不要把 key 放进工具参数、聊天或版本控制。如需通过请求头提供 key，请按 [Antigravity MCP 文档](https://www.antigravity.google/docs/mcp/)及客户端的私有请求头配置进行设置。
