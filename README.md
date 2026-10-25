@@ -102,6 +102,22 @@ Tested with official Gemini CLI 0.65.0 against a local mock with a synthetic key
 
 The plugin connects to `https://docs.blockvectra.com/mcp` directly over remote Streamable HTTP. You do not need the local stdio bridge or npm.
 
+### Install in the current project
+
+Run these commands from your project root:
+
+```bash
+mkdir -p .agents/plugins/blockvectra-docs
+curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigravity-v0.1.0/plugin.json --output .agents/plugins/blockvectra-docs/plugin.json
+curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigravity-v0.1.0/mcp_config.json --output .agents/plugins/blockvectra-docs/mcp_config.json
+```
+
+Start `agy` in that directory. For a first check, ask it to call `search_docs` with `{"query":"Antigravity","lang":"en","limit":1}`. Project-local loading and this single keyless documentation search were verified with Antigravity CLI 1.4.7.
+
+The [official plugin guide](https://www.antigravity.google/docs/plugins/) describes project-local and global installation. The commands above place the plugin in this project's `.agents/plugins/` directory.
+
+### After installation
+
 After installing, restart Antigravity and run `/mcp` to inspect the available tools. Try `list_chains`, then call `read_doc` with `path=quickstart` and `lang=en`.
 
 The plugin is keyless by default: documentation, discovery, pricing and status stay keyless; RPC follows each chain's public method policy; indexed data and account tools need your own BlockVectra API key. Never put a key in tool arguments, chat or version control. To send a key, configure it as a private header in your client, following [MCP in Antigravity](https://www.antigravity.google/docs/mcp/) and your client's private header settings.
