@@ -52,6 +52,7 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
+| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
 
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
@@ -91,6 +92,14 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 该用户级配置会覆盖扩展中同名的服务器。配置后重启 Gemini CLI。`gemini mcp list` 或 `/mcp` 只检查连通性，不代表账户或数据授权成功；如需确认认证，请主动调用只读的 `get_account`，并妥善保密返回的账户数据。
 
 已用官方 Gemini CLI 0.65.0 配合本地 mock 与合成 key 验证；这验证的是客户端配置和请求头传递，不代表真实 key 的工具调用验证。参见 [Gemini CLI MCP 自定义请求头](https://geminicli.com/docs/tools/mcp-server/#http-based-mcp-server-with-custom-headers)。
+
+## Antigravity 插件
+
+插件通过远程 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp`，不需要本地 stdio 桥接或 npm。
+
+安装后重启 Antigravity，运行 `/mcp` 查看可用工具。先调用 `list_chains`，再以 `path=quickstart`、`lang=zh` 调用 `read_doc`。
+
+插件默认无需 key：文档、发现、价格与状态保持免 key；RPC 是否免 key 取决于各链公共方法策略；已索引数据和账户工具需要你自己的 BlockVectra API key。不要把 key 放进工具参数、聊天或版本控制。如需通过请求头提供 key，请按 [Antigravity MCP 文档](https://www.antigravity.google/docs/mcp/)及客户端的私有请求头配置进行设置。
 
 ## 工具
 
