@@ -71,6 +71,27 @@ Chains, prices and limits change, so this README does not list them. Read them l
 
 More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) and [AI agents guide](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp).
 
+## goose: keyless documentation lookup
+
+Use [goose](https://goose-docs.ai/) with your configured model provider. The documentation tools need no BlockVectra account or API key.
+
+From a checkout of this repository, run the [documentation recipe](recipes/goose-docs.json):
+
+```bash
+goose recipe validate recipes/goose-docs.json
+goose run --recipe recipes/goose-docs.json
+```
+
+It asks `search_docs` for Robinhood Chain mainnet setup, then reads one returned document with `read_doc`. The recipe lists only those two tools; it does not include RPC, account or transaction tools. A successful result should cite the document and explain which connection steps need a key. The model uses your goose provider's normal quota or billing.
+
+For an interactive session instead, add the remote extension for that session:
+
+```bash
+goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp"
+```
+
+That session discovers the full tool catalog; the recipe is the smaller documentation-only starting point. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
+
 ## Gemini CLI extension
 
 The extension connects to `https://docs.blockvectra.com/mcp` directly over remote Streamable HTTP. You do not need the local stdio bridge or npm.

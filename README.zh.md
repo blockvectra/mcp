@@ -66,6 +66,27 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 更多：[BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp)、[AI Agent 接入指南](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp)（英文）。
 
+## goose：免密钥查阅文档
+
+先在 [goose](https://goose-docs.ai/) 中配置自己的模型提供方。文档工具不需要 BlockVectra 账号或 API key。
+
+检出本仓库后，运行[文档查询 recipe](recipes/goose-docs.json)：
+
+```bash
+goose recipe validate recipes/goose-docs.json
+goose run --recipe recipes/goose-docs.json
+```
+
+它先用 `search_docs` 查找 Robinhood Chain 主网接入文档，再用 `read_doc` 读取其中一页。recipe 只列出这两个工具，不包含 RPC、账号或交易工具。成功结果应引用文档，并说明哪些接入步骤需要 key。模型调用仍使用你在 goose 配置的额度或计费方案。
+
+如果需要交互会话，可以仅为本次会话连接远程扩展：
+
+```bash
+goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp"
+```
+
+该会话会发现完整工具目录；文档 recipe 是工具范围更小的起点。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
+
 ## Gemini CLI 扩展
 
 扩展通过远程 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp`，不需要本地 stdio 桥接或 npm。
