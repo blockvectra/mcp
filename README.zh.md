@@ -185,7 +185,9 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
 # 绝不通过 CLI 参数传递 key。
 ```
 
-### Cursor（`mcp.json`）
+### Cursor（`.cursor/mcp.json`）
+
+把此服务合入项目的 `.cursor/mcp.json`，保留已有服务配置：
 
 ```json
 {
@@ -196,6 +198,16 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
   }
 }
 ```
+
+使用 Cursor CLI 时，在该项目目录执行以下命令，允许连接并查看工具列表：
+
+```bash
+agent mcp enable blockvectra-docs
+agent mcp list-tools blockvectra-docs
+```
+
+参见 [Cursor CLI MCP 命令](https://cursor.com/docs/cli/mcp)。
+
 
 ### VS Code（`.vscode/mcp.json`）
 

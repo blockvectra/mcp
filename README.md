@@ -190,7 +190,9 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
 # see the Codex env_http_headers example below. Never pass a key as a CLI argument.
 ```
 
-### Cursor (`mcp.json`)
+### Cursor (`.cursor/mcp.json`)
+
+Merge this server into your project’s `.cursor/mcp.json`, preserving any existing servers:
 
 ```json
 {
@@ -201,6 +203,16 @@ claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
   }
 }
 ```
+
+For Cursor CLI, run these commands from that project directory to approve the connection and list its tools:
+
+```bash
+agent mcp enable blockvectra-docs
+agent mcp list-tools blockvectra-docs
+```
+
+See [Cursor CLI MCP commands](https://cursor.com/docs/cli/mcp).
+
 
 ### VS Code (`.vscode/mcp.json`)
 
