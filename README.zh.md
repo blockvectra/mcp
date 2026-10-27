@@ -70,11 +70,13 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 先在 [goose](https://goose-docs.ai/) 中配置自己的模型提供方。文档工具不需要 BlockVectra 账号或 API key。
 
-检出本仓库后，运行[文档查询 recipe](recipes/goose-docs.json)：
+下载并运行[文档查询 recipe](recipes/goose-docs.json)，只需这个 JSON 文件，无需检出整个仓库：
 
 ```bash
-goose recipe validate recipes/goose-docs.json
-goose run --recipe recipes/goose-docs.json
+curl --fail --location --output blockvectra-goose-docs.json \
+  https://raw.githubusercontent.com/blockvectra/mcp/8c99c0e499166d8ba2163536f8d150571783c0a3/recipes/goose-docs.json
+goose recipe validate blockvectra-goose-docs.json
+goose run --recipe blockvectra-goose-docs.json
 ```
 
 它先用 `search_docs` 查找 Robinhood Chain 主网接入文档，再用 `read_doc` 读取其中一页。recipe 只列出这两个工具，不包含 RPC、账号或交易工具。成功结果应引用文档，并说明哪些接入步骤需要 key。模型调用仍使用你在 goose 配置的额度或计费方案。
