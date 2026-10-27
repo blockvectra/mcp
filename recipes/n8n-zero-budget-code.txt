@@ -1,0 +1,91 @@
+// n8n Code node: Mode "Run Once for All Items", Language "JavaScript".
+// Advisory comparison only. It never allows dispatch and never calls anything.
+// TRUSTED_* constants are operator-only configuration: edit them in the node
+// by hand. They are never read from incoming items. Object.freeze only guards
+// against accidental mutation; it is not a trust boundary.
+const TRUSTED_APPROVED = Object.freeze({
+  chain: 'robinhood_mainnet',
+  method: 'eth_getLogs',
+  address: '0x1111111111111111111111111111111111111111',
+  fromBlock: '0x10',
+  toBlock: '0x1f',
+  maxSpendUsdc: '0',
+  maxCalls: 0,
+});
+const TRUSTED_REQUESTED = Object.freeze({ fromBlock: '0x10', toBlock: '0x1f' });
+
+const QUANTITY = /^0x(0|[1-9a-f][0-9a-f]{0,63})$/;
+
+const isPlain = (v) =>
+  v !== null && typeof v === 'object' && !Array.isArray(v) &&
+  (Object.getPrototypeOf(v) === Object.prototype || Object.getPrototypeOf(v) === null);
+
+const hasExactKeys = (v, keys) => {
+  const own = Object.keys(v);
+  return own.length === keys.length && keys.every((k) => Object.prototype.hasOwnProperty.call(v, k));
+};
+
+const quantity = (s) => {
+  if (typeof s !== 'string' || !QUANTITY.test(s)) return null;
+  return BigInt(s);
+};
+
+const receipt = (scope, covers, reason) => {
+  const reasons = [];
+  if (reason) reasons.push(reason);
+  reasons.push('zero_spend_or_call_budget');
+  return {
+    scope_match: scope,
+    covers_requested_interval: covers,
+    budget_allows_dispatch: false,
+    dispatch_decision: 'DENY',
+    reasons,
+    execution_observed: false,
+    settlement_verified: false,
+    receipt_kind: 'local_advisory_comparison',
+  };
+};
+
+const compare = (item) => {
+  const bad = (why) => receipt(false, false, why);
+  if (!isPlain(item) || !isPlain(item.json)) return bad('invalid_input_shape');
+  if (!hasExactKeys(item.json, ['proposal'])) return bad('invalid_input_shape');
+  const proposal = item.json.proposal;
+  if (!isPlain(proposal) || !hasExactKeys(proposal, ['tool', 'arguments'])) return bad('invalid_input_shape');
+  const args = proposal.arguments;
+  if (proposal.tool !== 'rpc_call') return bad('invalid_input_shape');
+  if (!isPlain(args) || !hasExactKeys(args, ['chain', 'method', 'params'])) return bad('invalid_input_shape');
+  if (!Array.isArray(args.params) || args.params.length !== 1) return bad('invalid_input_shape');
+  const filter = args.params[0];
+  if (!isPlain(filter) || !hasExactKeys(filter, ['address', 'fromBlock', 'toBlock'])) return bad('invalid_input_shape');
+  if (typeof args.chain !== 'string' || typeof args.method !== 'string' || typeof filter.address !== 'string') {
+    return bad('invalid_input_shape');
+  }
+  const from = quantity(filter.fromBlock);
+  const to = quantity(filter.toBlock);
+  if (from === null || to === null || from > to) return bad('invalid_block_interval');
+
+  const aFrom = BigInt(TRUSTED_APPROVED.fromBlock);
+  const aTo = BigInt(TRUSTED_APPROVED.toBlock);
+  const rFrom = BigInt(TRUSTED_REQUESTED.fromBlock);
+  const rTo = BigInt(TRUSTED_REQUESTED.toBlock);
+
+  const scope =
+    args.chain === TRUSTED_APPROVED.chain &&
+    args.method === TRUSTED_APPROVED.method &&
+    filter.address === TRUSTED_APPROVED.address &&
+    from >= aFrom && to <= aTo;
+  if (!scope) return receipt(false, false, 'proposal_outside_approved_scope');
+  const covers = from <= rFrom && to >= rTo;
+  return receipt(true, covers, covers ? null : 'requested_interval_not_fully_covered');
+};
+
+return $input.all().map((item) => {
+  let r;
+  try {
+    r = compare(item);
+  } catch (e) {
+    r = receipt(false, false, 'invalid_input_shape');
+  }
+  return { json: r };
+});
