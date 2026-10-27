@@ -92,6 +92,10 @@ goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp
 
 That session discovers the full tool catalog; the recipe is the smaller documentation-only starting point. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
 
+## Portable RPC documentation agent
+
+For a small hosted-agent demonstration, use the [portable instructions and evaluation cases](recipes/rpc-docs-agent/README.md). They reuse the two-tool documentation task above. This is a prompt and demo brief, not a Lagrange manifest or a verified deployment; host tool filtering and model/hosting charges are separate.
+
 ## n8n: offline proposal check
 
 For a regular n8n MCP Client workflow, [this recipe](recipes/n8n-zero-budget.md) shows how to check a proposed `rpc_call` offline before any MCP node runs. Paste [the Code node](recipes/n8n-zero-budget-code.txt) and compare it against the [fixtures](recipes/n8n-zero-budget-fixtures.json). With the trusted budgets set to zero, every receipt is an advisory comparison and dispatch is always `DENY`. It is not funding authorization or execution, and it has not been run in a real n8n instance. Read the guide for setup and limits.
