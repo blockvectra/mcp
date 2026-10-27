@@ -3,8 +3,8 @@
   "name": "com.blockvectra/docs",
   "title": "BlockVectra: multi-chain RPC & Data API",
   "description": "Keyless docs/discovery. RPC follows chain policy; indexed data and account tools need an API key.",
-  "version": "1.2.1-metadata.1",
-  "websiteUrl": "https://blockvectra.com/en/agents/",
+  "version": "1.2.1-metadata.2",
+  "websiteUrl": "https://blockvectra.com/en/agents/?ref=official-mcp-registry",
   "repository": {
     "url": "https://github.com/blockvectra/mcp",
     "source": "github"

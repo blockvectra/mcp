@@ -1,7 +1,9 @@
 name: Publish to MCP Registry
 
-# Manual only. Do not run until the server version in server.json is live
-# at https://docs.blockvectra.com/mcp.
+# Manual only. Publish the reviewed server.json from this repository.
+# This updates registry metadata; it does not deploy the remote MCP server.
+# For metadata-only revisions, keep remotes unchanged and use a new registry version.
+# For remote capability or contract changes, first deploy the matching implementation.
 on:
   workflow_dispatch:
     inputs:
