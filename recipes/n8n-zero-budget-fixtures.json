@@ -1,0 +1,96 @@
+{
+  "fixture_kind": "offline_preflight_comparison",
+  "source_request": "https://github.com/Circadian-agent/agent-collective/issues/1#issuecomment-6431421109",
+  "policy_scope": "Fixed zero-spend, zero-call synthetic policy only; no ALLOW or runtime authorization path.",
+  "cases": [
+    {
+      "name": "narrowed_interval",
+      "input": {
+        "approved": {
+          "chain": "robinhood_mainnet",
+          "method": "eth_getLogs",
+          "address": "0x1111111111111111111111111111111111111111",
+          "fromBlock": "0x10",
+          "toBlock": "0x1f",
+          "maxSpendUsdc": "0",
+          "maxCalls": 0
+        },
+        "requested": {
+          "fromBlock": "0x10",
+          "toBlock": "0x1f"
+        },
+        "proposal": {
+          "tool": "rpc_call",
+          "arguments": {
+            "chain": "robinhood_mainnet",
+            "method": "eth_getLogs",
+            "params": [
+              {
+                "address": "0x1111111111111111111111111111111111111111",
+                "fromBlock": "0x11",
+                "toBlock": "0x1f"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "scope_match": true,
+        "covers_requested_interval": false,
+        "budget_allows_dispatch": false,
+        "dispatch_decision": "DENY",
+        "reasons": [
+          "requested_interval_not_fully_covered",
+          "zero_spend_or_call_budget"
+        ],
+        "execution_observed": false,
+        "settlement_verified": false,
+        "receipt_kind": "local_advisory_comparison"
+      }
+    },
+    {
+      "name": "exact_interval",
+      "input": {
+        "approved": {
+          "chain": "robinhood_mainnet",
+          "method": "eth_getLogs",
+          "address": "0x1111111111111111111111111111111111111111",
+          "fromBlock": "0x10",
+          "toBlock": "0x1f",
+          "maxSpendUsdc": "0",
+          "maxCalls": 0
+        },
+        "requested": {
+          "fromBlock": "0x10",
+          "toBlock": "0x1f"
+        },
+        "proposal": {
+          "tool": "rpc_call",
+          "arguments": {
+            "chain": "robinhood_mainnet",
+            "method": "eth_getLogs",
+            "params": [
+              {
+                "address": "0x1111111111111111111111111111111111111111",
+                "fromBlock": "0x10",
+                "toBlock": "0x1f"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "scope_match": true,
+        "covers_requested_interval": true,
+        "budget_allows_dispatch": false,
+        "dispatch_decision": "DENY",
+        "reasons": [
+          "zero_spend_or_call_budget"
+        ],
+        "execution_observed": false,
+        "settlement_verified": false,
+        "receipt_kind": "local_advisory_comparison"
+      }
+    }
+  ]
+}
