@@ -75,11 +75,13 @@ More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) an
 
 Use [goose](https://goose-docs.ai/) with your configured model provider. The documentation tools need no BlockVectra account or API key.
 
-From a checkout of this repository, run the [documentation recipe](recipes/goose-docs.json):
+Download and run the [documentation recipe](recipes/goose-docs.json). You only need this JSON file, not a checkout of the repository:
 
 ```bash
-goose recipe validate recipes/goose-docs.json
-goose run --recipe recipes/goose-docs.json
+curl --fail --location --output blockvectra-goose-docs.json \
+  https://raw.githubusercontent.com/blockvectra/mcp/8c99c0e499166d8ba2163536f8d150571783c0a3/recipes/goose-docs.json
+goose recipe validate blockvectra-goose-docs.json
+goose run --recipe blockvectra-goose-docs.json
 ```
 
 It asks `search_docs` for Robinhood Chain mainnet setup, then reads one returned document with `read_doc`. The recipe lists only those two tools; it does not include RPC, account or transaction tools. A successful result should cite the document and explain which connection steps need a key. The model uses your goose provider's normal quota or billing.
