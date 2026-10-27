@@ -1,11 +1,13 @@
 import { test } from 'node:test';
+import { randomUUID } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 
-const secret = 'test-only-secret-reflected-by-http';
+// Synthetic per-run credential for header and reflected-secret redaction checks.
+const secret = `test-only-${randomUUID()}`;
 const rpc = (id, result) => ({ jsonrpc: '2.0', id, result });
 const init = { jsonrpc: '2.0', id: 'init', method: 'initialize', params: {
   protocolVersion: '2025-11-25', capabilities: { sampling: {}, roots: { listChanged: true } },
