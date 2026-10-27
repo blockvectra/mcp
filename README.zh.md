@@ -87,6 +87,10 @@ goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp
 
 该会话会发现完整工具目录；文档 recipe 是工具范围更小的起点。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
 
+## 可复用的 RPC 文档 Agent
+
+小型托管演示可使用[指令和验收用例](recipes/rpc-docs-agent/README.zh.md)，复用上述双工具文档任务。这是提示与演示说明，不是 Lagrange manifest 或已验证的部署；宿主工具过滤、模型及托管计费需要分别处理。
+
 ## n8n：离线 proposal 校验
 
 在普通 n8n MCP Client 工作流中，[该配方](recipes/n8n-zero-budget.md)说明了如何在任何 MCP 节点运行之前，离线校验一个拟发起的 `rpc_call`。粘贴 [Code 节点代码](recipes/n8n-zero-budget-code.txt)，并对照[fixture](recipes/n8n-zero-budget-fixtures.json)检查。可信预算为零时，每份回执都只是咨询性比对，调度结果恒为 `DENY`。它不是资金授权或执行，也没有在真实 n8n 实例中运行过。设置步骤与限制见该指南。
