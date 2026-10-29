@@ -51,13 +51,27 @@ npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-st
 
 This downloads the source snapshot and installs its dependencies; no BlockVectra account or key is needed. For a reproducible deployment, the package URL can use the snapshot's full commit SHA instead of the tag.
 
-For a source checkout, run `npm ci`, then:
+For clients that use an `mcpServers` configuration, this installs the fixed source snapshot without a checkout or a local absolute path:
 
-```bash
-node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs-only": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "blockvectra-docs-mcp"
+      ]
+    }
+  }
+}
 ```
 
-Configure a stdio client with `command: "node"` and that absolute path as its only argument. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
+Restart the client and ask it to find the Robinhood Chain setup guide with `search_docs`, then read one returned document with `read_doc`.
+
+For a source checkout, run `npm ci`, then use `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js` instead. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
 
 The default `src/cli.js` entry remains the full bridge described above. The published `@blockvectra/mcp@0.1.0` does not include this new entry; use the source snapshot or a checkout for it. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
 

@@ -51,13 +51,27 @@ npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-st
 
 它会下载源码快照并安装依赖，无需 BlockVectra 账号或 key。可复现部署时，可将包 URL 中的 tag 改为该快照的完整 commit SHA。
 
-如果使用源码 checkout，先运行 `npm ci`，再启动文档入口：
+使用 `mcpServers` 配置的客户端可直接安装固定源码快照，无需先 clone 或填写本地绝对路径：
 
-```bash
-node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
+```json
+{
+  "mcpServers": {
+    "blockvectra-docs-only": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "blockvectra-docs-mcp"
+      ]
+    }
+  }
+}
 ```
 
-为 stdio 客户端配置 `command: "node"`，唯一参数为该绝对路径。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
+重启客户端，让它用 `search_docs` 查找 Robinhood Chain 接入指南，再用 `read_doc` 阅读一篇返回的文档。
+
+如果使用源码 checkout，先运行 `npm ci`，再改用 `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js`。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
 
 默认 `src/cli.js` 仍是上文说明的完整桥接。已发布的 `@blockvectra/mcp@0.1.0` 不包含这个新入口，请使用上述源码快照或 checkout。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
 
