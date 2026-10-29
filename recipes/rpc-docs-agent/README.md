@@ -11,7 +11,7 @@ A small agent demonstration: ask how to connect to Robinhood Chain mainnet, retr
 - Remote MCP server: `https://docs.blockvectra.com/mcp`.
 - Tool subset to configure in the host: `search_docs`, `read_doc`.
 
-The instructions describe the intended behavior; they do not enforce host permissions. Connecting the remote server can expose its full catalog. The host's exact configuration for exposing only these two tools still needs confirmation. Do not treat goose's `available_tools` field as a supported Lagrange field.
+The instructions describe the intended behavior; they do not enforce host permissions. Connecting the remote server directly can expose its full catalog. For a host that runs command-based MCP servers, use the source checkout's [documentation-only stdio entry](../../src/docs-cli.js): `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js` after `npm ci`. It filters discovery to `search_docs` and `read_doc`, rejects other calls locally and does not forward a BlockVectra key. It is not included in the published npm 0.1.0. Do not treat goose's `available_tools` field as a supported Lagrange field, or this MCP restriction as a sandbox for the host's other tools.
 
 Use this brief from its own folder. It needs no local scripts, keys, personal settings or other connected services. Do not import a developer's unrelated local MCP connections or credentials into the demo.
 
@@ -38,4 +38,4 @@ For an actual demonstration, retain the tool names and count, returned document 
 
 ## Platform status
 
-The portable instructions are prepared. No Lagrange deployment, runtime test, tool-filter enforcement, sponsored credits or featured placement is claimed here. The platform-specific tool configuration and sponsored hosting/model arrangement are being discussed with the platform maintainer in the [original invitation thread](https://github.com/TensorBlock/awesome-mcp-servers/pull/4664#issuecomment-6437870958).
+The portable instructions are prepared. No Lagrange deployment, hosted runtime test, host-side tool-filter enforcement, sponsored credits or featured placement is claimed here. The platform-specific tool configuration and sponsored hosting/model arrangement are being discussed with the platform maintainer in the [original invitation thread](https://github.com/TensorBlock/awesome-mcp-servers/pull/4664#issuecomment-6437870958).
