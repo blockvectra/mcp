@@ -1,0 +1,29 @@
+name: blockvectra-rh-docs-demo
+harness: claude-code
+model:
+  name: tensorblock/claude-sonnet-5-5
+instructions: ./AGENTS.md
+files: []
+secrets: []
+mcp_servers:
+  - name: blockvectra-docs
+    command: npm
+    args:
+      - exec
+      - --yes
+      - --package
+      - https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz
+      - --
+      - blockvectra-docs-mcp
+egress:
+  allow:
+    - github.com
+    - codeload.github.com
+    - registry.npmjs.org
+    - docs.blockvectra.com
+limits:
+  max_minutes: 2
+  max_turns: 6
+  max_cost_usd: 0.10
+improvement:
+  mode: "off"
