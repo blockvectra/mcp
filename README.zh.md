@@ -15,8 +15,10 @@
 使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
 
 ```bash
-npx --yes @blockvectra/mcp@0.1.0
+npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-mcp
 ```
+
+`mcp` 命令也是完整桥接的别名，保留裸 `npx @blockvectra/mcp` 调用方式。只需文档时，请使用下方的独立命令。
 
 为 stdio 客户端配置：
 
@@ -25,7 +27,7 @@ npx --yes @blockvectra/mcp@0.1.0
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.1", "blockvectra-mcp"]
     }
   }
 }
@@ -41,17 +43,17 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 本地验证：`npm test` 仅串行运行 mock HTTP 与真实 stdio 子进程测试；`npm pack --dry-run` 检查包内容。无需 build。
 
-## 从源码运行双工具文档连接
+## 双工具文档连接
 
-只需要 `search_docs` 和 `read_doc` 的接入助手，可用 Node.js 22+ 一条命令安装并运行源码快照：
+只需要 `search_docs` 和 `read_doc` 的接入助手，可用 Node.js 22+ 运行：
 
 ```bash
-npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-stdio-20261029.tar.gz blockvectra-docs-mcp
+npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-docs-mcp
 ```
 
-它会下载源码快照并安装依赖，无需 BlockVectra 账号或 key。可复现部署时，可将包 URL 中的 tag 改为该快照的完整 commit SHA。
+它会安装包与依赖，无需 BlockVectra 账号或 key。如果需要固定源码快照，可运行 `npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp`。
 
-使用 `mcpServers` 配置的客户端可直接安装固定源码快照，无需先 clone 或填写本地绝对路径：
+使用 `mcpServers` 配置的客户端需明确选择文档专用命令：
 
 ```json
 {
@@ -61,7 +63,7 @@ npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-st
       "args": [
         "--yes",
         "--package",
-        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "@blockvectra/mcp@0.1.1",
         "blockvectra-docs-mcp"
       ]
     }
@@ -73,7 +75,7 @@ npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-st
 
 如果使用源码 checkout，先运行 `npm ci`，再改用 `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js`。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
 
-默认 `src/cli.js` 仍是上文说明的完整桥接。已发布的 `@blockvectra/mcp@0.1.0` 不包含这个新入口，请使用上述源码快照或 checkout。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
+默认 `src/cli.js` 仍是上文说明的完整桥接。`@blockvectra/mcp@0.1.0` 不包含双工具文档入口。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
 
 ## 一行接入
 

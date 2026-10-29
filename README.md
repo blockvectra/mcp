@@ -15,8 +15,10 @@ Connect to `https://docs.blockvectra.com/mcp` without headers for documentation 
 Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
 
 ```bash
-npx --yes @blockvectra/mcp@0.1.0
+npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-mcp
 ```
+
+The `mcp` executable is also an alias for the full bridge, preserving bare `npx @blockvectra/mcp` calls. For documentation only, use the separate command below.
 
 Configure a stdio client:
 
@@ -25,7 +27,7 @@ Configure a stdio client:
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "@blockvectra/mcp@0.1.0"]
+      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.1", "blockvectra-mcp"]
     }
   }
 }
@@ -41,17 +43,17 @@ Dependencies are pinned to official `@modelcontextprotocol/client` and `@modelco
 
 Local verification: `npm test` runs only the serial mock HTTP/real stdio subprocess tests; `npm pack --dry-run` checks the package contents. No build is required.
 
-## Documentation-only stdio from source
+## Documentation-only stdio
 
-For a setup helper that needs just `search_docs` and `read_doc`, install and run the source snapshot with Node.js 22+:
+For a setup helper that needs just `search_docs` and `read_doc`, use Node.js 22+:
 
 ```bash
-npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-stdio-20261029.tar.gz blockvectra-docs-mcp
+npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-docs-mcp
 ```
 
-This downloads the source snapshot and installs its dependencies; no BlockVectra account or key is needed. For a reproducible deployment, the package URL can use the snapshot's full commit SHA instead of the tag.
+This installs the package and its dependencies; no BlockVectra account or key is needed. To use the fixed source snapshot instead, run `npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp`.
 
-For clients that use an `mcpServers` configuration, this installs the fixed source snapshot without a checkout or a local absolute path:
+For clients that use an `mcpServers` configuration, select the documentation-only command explicitly:
 
 ```json
 {
@@ -61,7 +63,7 @@ For clients that use an `mcpServers` configuration, this installs the fixed sour
       "args": [
         "--yes",
         "--package",
-        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "@blockvectra/mcp@0.1.1",
         "blockvectra-docs-mcp"
       ]
     }
@@ -73,7 +75,7 @@ Restart the client and ask it to find the Robinhood Chain setup guide with `sear
 
 For a source checkout, run `npm ci`, then use `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js` instead. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
 
-The default `src/cli.js` entry remains the full bridge described above. The published `@blockvectra/mcp@0.1.0` does not include this new entry; use the source snapshot or a checkout for it. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
+The default `src/cli.js` entry remains the full bridge described above. `@blockvectra/mcp@0.1.0` does not include the documentation-only entry. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
 
 ## Install in one step
 
