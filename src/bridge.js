@@ -1,12 +1,13 @@
 import { StreamableHTTPClientTransport, isJSONRPCResponse, isJSONRPCResultResponse } from '@modelcontextprotocol/client';
 import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
+import { createDocsOnlyPolicy } from './docs-only.js';
 
 export const ENDPOINT = 'https://docs.blockvectra.com/mcp';
 
 // endpoint 仅供库调用和本地测试；生产 CLI 始终使用 ENDPOINT。
-export async function runBridge({ endpoint = ENDPOINT, apiKey = process.env.BLOCKVECTRA_API_KEY } = {}) {
+export async function runBridge({ endpoint = ENDPOINT, apiKey = process.env.BLOCKVECTRA_API_KEY, docsOnly = false } = {}) {
   const http = new StreamableHTTPClientTransport(new URL(endpoint), {
-    requestInit: apiKey ? { headers: { 'x-api-key': apiKey } } : undefined,
+    requestInit: apiKey && !docsOnly ? { headers: { 'x-api-key': apiKey } } : undefined,
   });
   const stdio = new StdioServerTransport();
   const initializeIds = new Set();
@@ -28,10 +29,16 @@ export async function runBridge({ endpoint = ENDPOINT, apiKey = process.env.BLOC
   };
   const onSignal = () => { void close(); };
   const fail = () => { void close(true); };
+  const policy = docsOnly ? createDocsOnlyPolicy({
+    local: message => { void stdio.send(message).catch(fail); },
+    remote: message => { void http.send(message).catch(fail); },
+    fail,
+  }) : undefined;
   http.onerror = stdio.onerror = fail;
   http.onclose = stdio.onclose = () => { void close(); };
   stdio.onmessage = message => {
     if (closing) return;
+    if (policy) { message = policy.toServer(message); if (!message) return; }
     if (message.method === 'initialize' && 'id' in message) initializeIds.add(message.id);
     // 不等待请求响应，确保 SSE 双向请求的客户端回答可以立即发出。
     void http.send(message).catch(fail);
@@ -42,6 +49,7 @@ export async function runBridge({ endpoint = ENDPOINT, apiKey = process.env.BLOC
       && isJSONRPCResultResponse(message) && typeof message.result.protocolVersion === 'string') {
       http.setProtocolVersion(message.result.protocolVersion);
     }
+    if (policy) { message = policy.toClient(message); if (!message) return; }
     void stdio.send(message).catch(fail);
   };
   process.on('SIGINT', onSignal);

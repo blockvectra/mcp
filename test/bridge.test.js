@@ -5,6 +5,7 @@ import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
+import { createDocsOnlyPolicy } from '../src/docs-only.js';
 
 // Synthetic per-run credential for header and reflected-secret redaction checks.
 const secret = `test-only-${randomUUID()}`;
@@ -201,6 +202,109 @@ test('HTTP 请求未响应时 EOF 取消请求并退出', { timeout: 5000 }, asy
   const seen = once(server, 'request-seen');
   c.send(init);
   await seen;
+  c.proc.stdin.end();
+  assert.equal((await c.exited)[0], 0);
+  assert.equal(c.stderr(), '');
+});
+
+test('文档连接仅列双工具、拒绝其它方法且不转发继承 key', { timeout: 8000 }, async t => {
+  const received = [];
+  const docs = ['search_docs', 'read_doc'].map(name => ({ name, inputSchema: { type: 'object' } }));
+  const original = { content: [{ type: 'text', text: 'Saved document' }], structuredContent: { path: 'guide' } };
+  const server = createServer(async (req, res) => {
+    assert.equal(req.headers['x-api-key'], undefined);
+    if (req.method === 'GET') { res.writeHead(200, { 'content-type': 'text/event-stream' }); return; }
+    let body = '';
+    for await (const data of req) body += data;
+    const message = JSON.parse(body);
+    received.push(message);
+    if (!('id' in message)) { res.writeHead(202); res.end(); return; }
+    res.writeHead(200, { 'content-type': 'application/json' });
+    const value = message.method === 'initialize' ? { ...result, capabilities: { tools: { listChanged: true }, resources: {} } }
+      : message.method === 'tools/list' ? { tools: [...docs, { name: 'rpc_call' }, { name: 'future_paid_tool' }], nextCursor: 'next' }
+      : original;
+    res.end(JSON.stringify(rpc(message.id, value)));
+  });
+  server.listen(0, '127.0.0.1'); await once(server, 'listening');
+  t.after(() => { server.closeAllConnections(); server.close(); });
+  const c = child(t, './entry.js', { TEST_ENDPOINT: `http://127.0.0.1:${server.address().port}/mcp`, TEST_DOCS_ONLY: '1', BLOCKVECTRA_API_KEY: secret });
+  c.send(init);
+  const hello = await c.read();
+  assert.deepEqual(hello.result.capabilities, { tools: { listChanged: true } });
+  assert.equal(hello.result.protocolVersion, result.protocolVersion);
+  assert.deepEqual(hello.result.serverInfo, result.serverInfo);
+  assert.match(hello.result.instructions, /search_docs and read_doc/);
+  assert.deepEqual(received[0].params.capabilities, {});
+  c.send(initialized);
+  c.send({ jsonrpc: '2.0', id: 'list', method: 'tools/list' });
+  assert.deepEqual(await c.read(), rpc('list', { tools: docs, nextCursor: 'next' }));
+  for (const name of ['search_docs', 'read_doc']) {
+    c.send({ jsonrpc: '2.0', id: name, method: 'tools/call', params: { name, arguments: { path: 'guide' } } });
+    assert.deepEqual(await c.read(), rpc(name, original));
+  }
+  const count = received.length;
+  for (const name of ['rpc_call', 'send_raw_transaction', 'get_account', 'data_api_get', 'future_paid_tool', 'read_doc ']) {
+    c.send({ jsonrpc: '2.0', id: name, method: 'tools/call', params: { name, arguments: { token: secret } } });
+    assert.equal((await c.read()).error.code, -32602);
+  }
+  for (const method of ['resources/read', 'prompts/get', 'completion/complete', 'tasks/get']) {
+    c.send({ jsonrpc: '2.0', id: method, method });
+    assert.equal((await c.read()).error.code, -32601);
+  }
+  assert.equal(received.length, count);
+  assert.ok(!JSON.stringify(received).includes(secret));
+  c.proc.stdin.end();
+  assert.equal((await c.exited)[0], 0);
+  assert.equal(c.stderr(), '');
+});
+
+test('文档策略拒绝反向权限请求、无关通知与未关联响应，保留错误', () => {
+  const local = [], remote = [];
+  const p = createDocsOnlyPolicy({ local: m => local.push(m), remote: m => remote.push(m), fail: () => assert.fail('unexpected failure') });
+  assert.equal(p.toClient({ jsonrpc: '2.0', id: 1, method: 'sampling/createMessage' }), undefined);
+  assert.equal(remote[0].error.code, -32601);
+  assert.equal(p.toClient({ jsonrpc: '2.0', id: 2, method: 'ping' }), undefined);
+  assert.deepEqual(remote[1], rpc(2, {}));
+  assert.equal(p.toServer(rpc(1, {})), undefined);
+  assert.equal(p.toServer({ jsonrpc: '2.0', method: 'notifications/roots/list_changed' }), undefined);
+  assert.equal(p.toClient({ jsonrpc: '2.0', method: 'notifications/message', params: { data: secret } }), undefined);
+  const changed = { jsonrpc: '2.0', method: 'notifications/tools/list_changed' };
+  assert.deepEqual(p.toClient(changed), changed);
+  assert.equal(p.toClient(rpc('unrelated', { tools: [{ name: 'rpc_call' }] })), undefined);
+  p.toServer({ jsonrpc: '2.0', id: 3, method: 'tools/call', params: { name: 'read_doc' } });
+  const error = { jsonrpc: '2.0', id: 3, error: { code: -32042, message: 'original error', data: { original: true } } };
+  assert.deepEqual(p.toClient(error), error);
+  assert.equal(local.length, 0);
+});
+
+test('文档策略的待响应集合有界、可取消；分页工具表继续过滤', () => {
+  const errors = [];
+  const p = createDocsOnlyPolicy({ local: m => errors.push(m), remote: () => assert.fail(), fail: () => assert.fail() });
+  for (let id = 0; id < 64; id++) assert.ok(p.toServer({ jsonrpc: '2.0', id, method: 'ping' }));
+  assert.equal(p.toServer({ jsonrpc: '2.0', id: 64, method: 'ping' }), undefined);
+  assert.equal(errors[0].error.code, -32600);
+  p.toServer({ jsonrpc: '2.0', method: 'notifications/cancelled', params: { requestId: 0 } });
+  assert.equal(p.toClient(rpc(0, {})), undefined);
+  assert.ok(p.toServer({ jsonrpc: '2.0', id: 'page', method: 'tools/list', params: { cursor: 'next' } }));
+  const read = { name: 'read_doc', inputSchema: { type: 'object' }, annotations: { readOnlyHint: true } };
+  assert.deepEqual(p.toClient(rpc('page', { tools: [null, read, { name: 'new_tool' }], nextCursor: 'last' })), rpc('page', { tools: [read], nextCursor: 'last' }));
+  let failed = 0;
+  const malformed = createDocsOnlyPolicy({ local: () => {}, remote: () => {}, fail: () => failed++ });
+  malformed.toServer({ jsonrpc: '2.0', id: 'bad', method: 'tools/list' });
+  assert.equal(malformed.toClient(rpc('bad', { tools: {} })), undefined);
+  assert.equal(failed, 1);
+});
+
+test('文档生产入口拒绝参数、不回显并在 EOF 退出', { timeout: 5000 }, async t => {
+  const proc = spawn(process.execPath, [fileURLToPath(new URL('../src/docs-cli.js', import.meta.url)), secret]);
+  t.after(() => { if (proc.exitCode === null) proc.kill('SIGKILL'); });
+  let stderr = '', stdout = '';
+  proc.stderr.on('data', data => { stderr += data; });
+  proc.stdout.on('data', data => { stdout += data; });
+  assert.equal((await once(proc, 'exit'))[0], 1);
+  assert.equal(stdout, '');
+  assert.equal(stderr, 'BlockVectra MCP：不接受命令行参数，请使用环境变量配置。\n');
+  const c = child(t, '../src/docs-cli.js', { BLOCKVECTRA_API_KEY: secret });
   c.proc.stdin.end();
   assert.equal((await c.exited)[0], 0);
   assert.equal(c.stderr(), '');

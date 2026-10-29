@@ -35,11 +35,23 @@ npx --yes @blockvectra/mcp@0.1.0
 
 CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参数。可选地通过子进程环境或客户端的私有环境配置提供 `BLOCKVECTRA_API_KEY`，仅转发为 `x-api-key` 请求头。绝不将 key 放进 CLI 参数、工具参数或聊天，也不要提供私钥。
 
-桥接直接连接官方 `StreamableHTTPClientTransport` 与 `StdioServerTransport`，不重建能力或工具表。在 JSON 消息层面保留 initialize 参数及结果、capabilities、instructions、protocolVersion、工具结果、JSON-RPC 错误、notifications 和双向请求（不保证字节排版一致）。收到成功的 initialize response 后，先设置 HTTP transport 的协商版本，再转发响应。stdout 仅包含 MCP 消息；stderr 只输出固定诊断文案，不输出 SDK 错误原文。EOF、SIGINT、SIGTERM 关闭两个 transport；transport 失败关闭桥接并以状态码 1 退出。HTTP/SSE、解析和重连行为沿用 SDK。
+默认入口直接连接官方 `StreamableHTTPClientTransport` 与 `StdioServerTransport`，不重建能力或工具表。在 JSON 消息层面保留 initialize 参数及结果、capabilities、instructions、protocolVersion、工具结果、JSON-RPC 错误、notifications 和双向请求（不保证字节排版一致）。收到成功的 initialize response 后，先设置 HTTP transport 的协商版本，再转发响应。stdout 仅包含 MCP 消息；stderr 只输出固定诊断文案，不输出 SDK 错误原文。EOF、SIGINT、SIGTERM 关闭两个 transport；transport 失败关闭桥接并以状态码 1 退出。HTTP/SSE、解析和重连行为沿用 SDK。
 
 依赖固定为官方 `@modelcontextprotocol/client` 与 `@modelcontextprotocol/server` **2.3.1**；其发布包 export 与源码提供上述 transport，要求 Node >=20。依据见[官方 SDK 仓库及版本发布](https://github.com/modelcontextprotocol/typescript-sdk/releases)与[连接文档](https://ts.sdk.modelcontextprotocol.io/v2/clients/connect)。截至 2026-10-13，[Node 官方版本表](https://nodejs.org/en/about/previous-releases)将 Node 20 列为 EOL、Node 22 列为 LTS，因此本包要求 **Node >=22**。
 
 本地验证：`npm test` 仅串行运行 mock HTTP 与真实 stdio 子进程测试；`npm pack --dry-run` 检查包内容。无需 build。
+
+## 从源码运行双工具文档连接
+
+只需要 `search_docs` 和 `read_doc` 的接入助手，可在当前源码 checkout 中运行 `npm ci`，再使用文档入口：
+
+```bash
+node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
+```
+
+为 stdio 客户端配置 `command: "node"`，唯一参数为该绝对路径。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
+
+默认 `src/cli.js` 仍是上文说明的完整桥接。已发布的 `@blockvectra/mcp@0.1.0` 不包含这个新入口，请使用源码 checkout。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
 
 ## 一行接入
 

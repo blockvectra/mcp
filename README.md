@@ -35,11 +35,23 @@ For a source checkout, run `npm ci`, then use `node` with the absolute path to `
 
 The CLI always bridges to `https://docs.blockvectra.com/mcp`; it accepts no command-line arguments. Optionally supply `BLOCKVECTRA_API_KEY` through the child process environment or your client's private environment settings. It is forwarded only as `x-api-key`. Never put a key in CLI arguments, tool arguments, or chat; never supply private keys.
 
-The bridge connects the official `StreamableHTTPClientTransport` and `StdioServerTransport` directly, without rebuilding capabilities or tools. It preserves initialize parameters/results, capabilities, instructions, protocolVersion, tool results, JSON-RPC errors, notifications and bidirectional requests at the JSON message level (not byte formatting). After a successful initialize response, it sets the HTTP transport's negotiated protocol version before forwarding that response. stdout contains MCP messages only; stderr uses fixed diagnostics without SDK error text. EOF, SIGINT and SIGTERM close both transports; transport failures close the bridge with exit code 1. HTTP/SSE behavior, parsing and reconnection remain SDK behavior.
+The default entry connects the official `StreamableHTTPClientTransport` and `StdioServerTransport` directly, without rebuilding capabilities or tools. It preserves initialize parameters/results, capabilities, instructions, protocolVersion, tool results, JSON-RPC errors, notifications and bidirectional requests at the JSON message level (not byte formatting). After a successful initialize response, it sets the HTTP transport's negotiated protocol version before forwarding that response. stdout contains MCP messages only; stderr uses fixed diagnostics without SDK error text. EOF, SIGINT and SIGTERM close both transports; transport failures close the bridge with exit code 1. HTTP/SSE behavior, parsing and reconnection remain SDK behavior.
 
 Dependencies are pinned to official `@modelcontextprotocol/client` and `@modelcontextprotocol/server` **2.3.1**, whose published package exports and source provide these transports and require Node >=20. See the [official SDK repository/releases](https://github.com/modelcontextprotocol/typescript-sdk/releases) and [connection documentation](https://ts.sdk.modelcontextprotocol.io/v2/clients/connect). As of 2026-10-13, [Node's official release table](https://nodejs.org/en/about/previous-releases) lists Node 20 as EOL and Node 22 as LTS, so this package requires **Node >=22**.
 
 Local verification: `npm test` runs only the serial mock HTTP/real stdio subprocess tests; `npm pack --dry-run` checks the package contents. No build is required.
+
+## Documentation-only stdio from source
+
+For a setup helper that needs just `search_docs` and `read_doc`, use the documentation entry from a current source checkout after `npm ci`:
+
+```bash
+node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
+```
+
+Configure a stdio client with `command: "node"` and that absolute path as its only argument. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
+
+The default `src/cli.js` entry remains the full bridge described above. The published `@blockvectra/mcp@0.1.0` does not include this new entry; use a source checkout for it. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
 
 ## Install in one step
 
