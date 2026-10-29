@@ -43,7 +43,15 @@ Local verification: `npm test` runs only the serial mock HTTP/real stdio subproc
 
 ## Documentation-only stdio from source
 
-For a setup helper that needs just `search_docs` and `read_doc`, use the documentation entry from a current source checkout after `npm ci`:
+For a setup helper that needs just `search_docs` and `read_doc`, install and run the source snapshot with Node.js 22+:
+
+```bash
+npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-stdio-20261029.tar.gz blockvectra-docs-mcp
+```
+
+This downloads the source snapshot and installs its dependencies; no BlockVectra account or key is needed. For a reproducible deployment, the package URL can use the snapshot's full commit SHA instead of the tag.
+
+For a source checkout, run `npm ci`, then:
 
 ```bash
 node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
@@ -51,7 +59,7 @@ node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
 
 Configure a stdio client with `command: "node"` and that absolute path as its only argument. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
 
-The default `src/cli.js` entry remains the full bridge described above. The published `@blockvectra/mcp@0.1.0` does not include this new entry; use a source checkout for it. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
+The default `src/cli.js` entry remains the full bridge described above. The published `@blockvectra/mcp@0.1.0` does not include this new entry; use the source snapshot or a checkout for it. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
 
 ## Install in one step
 

@@ -43,7 +43,15 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 
 ## 从源码运行双工具文档连接
 
-只需要 `search_docs` 和 `read_doc` 的接入助手，可在当前源码 checkout 中运行 `npm ci`，再使用文档入口：
+只需要 `search_docs` 和 `read_doc` 的接入助手，可用 Node.js 22+ 一条命令安装并运行源码快照：
+
+```bash
+npx --yes --package https://github.com/blockvectra/mcp/archive/refs/tags/docs-stdio-20261029.tar.gz blockvectra-docs-mcp
+```
+
+它会下载源码快照并安装依赖，无需 BlockVectra 账号或 key。可复现部署时，可将包 URL 中的 tag 改为该快照的完整 commit SHA。
+
+如果使用源码 checkout，先运行 `npm ci`，再启动文档入口：
 
 ```bash
 node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
@@ -51,7 +59,7 @@ node /absolute/path/to/blockvectra-mcp/src/docs-cli.js
 
 为 stdio 客户端配置 `command: "node"`，唯一参数为该绝对路径。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
 
-默认 `src/cli.js` 仍是上文说明的完整桥接。已发布的 `@blockvectra/mcp@0.1.0` 不包含这个新入口，请使用源码 checkout。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
+默认 `src/cli.js` 仍是上文说明的完整桥接。已发布的 `@blockvectra/mcp@0.1.0` 不包含这个新入口，请使用上述源码快照或 checkout。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
 
 ## 一行接入
 
