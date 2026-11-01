@@ -17,6 +17,7 @@
 | 客户端 | 一行命令 / 链接 | 出处 |
 | --- | --- | --- |
 | Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Codex | `codex mcp add blockvectra --url https://docs.blockvectra.com/mcp` | [Codex MCP 配置](https://developers.openai.com/learn/docs-mcp) |
 | Claude Code 插件（MCP 服务器 + `blockvectra-rpc` 技能） | `/plugin marketplace add blockvectra/mcp`，然后 `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces) |
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
