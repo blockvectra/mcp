@@ -12,18 +12,20 @@
 - 远程 MCP 服务：`https://docs.blockvectra.com/mcp`。
 - 需要在宿主中配置的工具子集：`search_docs`、`read_doc`。
 
-指令描述预期行为，不会强制限制宿主权限。直接连接远程服务可能暴露完整工具目录。宿主支持命令型 MCP 时，可使用[固定的公开源码包](https://github.com/blockvectra/mcp/tree/e39ef37e45fb16d3dc33a225d4139be1220deba5)：
+指令描述预期行为，不会强制限制宿主权限。直接连接远程服务可能暴露完整工具目录。宿主支持命令型 MCP 时，可使用[已发布的 GitHub v0.1.1 安装包](https://github.com/blockvectra/mcp/releases/tag/v0.1.1)：
 
 ```json
 {
   "command": "npm",
   "args": [
     "exec", "--yes", "--package",
-    "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+    "https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz",
     "--", "blockvectra-docs-mcp"
   ]
 }
 ```
+
+发行页提供 [SHA256SUMS](https://github.com/blockvectra/mcp/releases/download/v0.1.1/SHA256SUMS)，安装包 SHA-256 为 `36a5595189d08a1fd229880faa82a0bc38fd20a873ac7f25ad2f1e39a116c7fe`；手动下载安装包时核对。
 
 需要 Node.js 22 及以上版本和网络访问。包中提供[双工具文档入口](../../src/docs-cli.js)：发现列表只含 `search_docs` 和 `read_doc`，其他调用在本地拒绝，也不转发 BlockVectra key。已发布的 npm 0.1.0 不包含此入口。不能把 goose 的 `available_tools` 字段当作 Lagrange 已支持的字段，也不能把这条 MCP 连接的限制当作宿主其他工具的沙箱。
 
@@ -31,7 +33,7 @@
 
 ## LagrangeCloud 配置
 
-同目录的 `lgr.yaml` 依据 LagrangeCloud [manifest 文档](https://lgr.tensorblock.co/docs/lgr-yaml)编写。将它与 `AGENTS.md` 一起使用，路径相对 manifest。配置选择文档列出的 `claude-code` 宿主和 `tensorblock/claude-sonnet-5-5` 模型、一个命令型 MCP 连接，不声明项目 secret 或其他文件，也不导入本机 MCP 连接或登录。出口列表涵盖源码归档、npm 依赖和公开文档。
+同目录的 `lgr.yaml` 依据 LagrangeCloud [manifest 文档](https://lgr.tensorblock.co/docs/lgr-yaml)编写。将它与 `AGENTS.md` 一起使用，路径相对 manifest。配置选择文档列出的 `claude-code` 宿主和 `tensorblock/claude-sonnet-5-5` 模型、一个命令型 MCP 连接，不声明项目 secret 或其他文件，出口列表涵盖 GitHub、发行包下载主机 `release-assets.githubusercontent.com`、npm 依赖和公开文档。Lagrange 部署时可能发现本机工具登录，应从没有无关凭据的独立项目环境使用。
 
 在指定的 LagrangeCloud 项目使用该目录，部署前核对模型可用性和项目额度。该目录下的官方部署命令为 `lgr deploy`。平台登录及项目额度与无需 BlockVectra key 的文档查询是两回事，赞助项目安排尚未确认。不要上传整个开发工作区或自动导入无关凭据。
 
