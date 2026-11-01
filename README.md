@@ -10,6 +10,36 @@ Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain
 
 Connect to `https://docs.blockvectra.com/mcp` without headers for documentation and discovery. Robinhood Chain public endpoints allow supported RPC reads without a key; methods outside the public policy require an API key. Faucet claims require `x-api-key`. HTTP `202` means accepted; check the transaction receipt for on-chain inclusion (`status: "0x1"`), which is not finality.
 
+## Install in one step
+
+Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
+
+| Client | One-line install | Source |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Claude Code plugin (MCP server + `blockvectra-rpc` skill) | `/plugin marketplace add blockvectra/mcp`, then `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces), [Plugin dependencies](https://code.claude.com/docs/en/plugins/dependencies) |
+| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
+| VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
+| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
+| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity plugins](https://www.antigravity.google/docs/plugins?tab=cli) |
+
+The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
+
+The plugin is described by [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json). It installs the `blockvectra` MCP server from [`.mcp.json`](.mcp.json) and, as a dependency, the `blockvectra-rpc` skill from [blockvectra/skills](https://github.com/blockvectra/skills).
+
+- **Endpoint:** `https://docs.blockvectra.com/mcp` (Streamable HTTP, stateless)
+- **Auth:** optional `x-api-key` header (a BlockVectra API key). `Authorization: Bearer <key>` is also accepted. Without a key you can use the documentation, chain, pricing and status tools, and the JSON-RPC methods that a chain's public endpoint allows.
+- **Never** put API keys or private keys in tool arguments or chat; the server reads the key only from HTTP headers.
+
+Chains, prices and limits change, so this README does not list them. Read them live:
+
+- Supported chains: `GET https://api.blockvectra.com/v1/chains`
+- Plans, prices and limits: `GET https://console-api.blockvectra.com/v1/plans`
+- Service status: `GET https://api.blockvectra.com/v1/status`
+
+More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) and [AI agents guide](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp).
+
 ## Local stdio bridge
 
 Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
@@ -76,36 +106,6 @@ Restart the client and ask it to find the Robinhood Chain setup guide with `sear
 For a source checkout, run `npm ci`, then use `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js` instead. This entry lists only the two documentation tools and locally rejects other tool calls and non-documentation methods before forwarding. It does not forward `BLOCKVECTRA_API_KEY`, even if inherited. It also omits other server capabilities and does not expose reverse client requests such as sampling or roots.
 
 The default `src/cli.js` entry remains the full bridge described above. `@blockvectra/mcp@0.1.0` does not include the documentation-only entry. This limits this MCP connection, not the host agent's other tools, shell or network access. Model or hosting charges are separate.
-
-## Install in one step
-
-Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
-
-| Client | One-line install | Source |
-| --- | --- | --- |
-| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
-| Claude Code plugin (MCP server + `blockvectra-rpc` skill) | `/plugin marketplace add blockvectra/mcp`, then `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces), [Plugin dependencies](https://code.claude.com/docs/en/plugins/dependencies) |
-| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
-| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
-| VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
-| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
-| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity plugins](https://www.antigravity.google/docs/plugins?tab=cli) |
-
-The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
-
-The plugin is described by [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json) and [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json). It installs the `blockvectra` MCP server from [`.mcp.json`](.mcp.json) and, as a dependency, the `blockvectra-rpc` skill from [blockvectra/skills](https://github.com/blockvectra/skills).
-
-- **Endpoint:** `https://docs.blockvectra.com/mcp` (Streamable HTTP, stateless)
-- **Auth:** optional `x-api-key` header (a BlockVectra API key). `Authorization: Bearer <key>` is also accepted. Without a key you can use the documentation, chain, pricing and status tools, and the JSON-RPC methods that a chain's public endpoint allows.
-- **Never** put API keys or private keys in tool arguments or chat; the server reads the key only from HTTP headers.
-
-Chains, prices and limits change, so this README does not list them. Read them live:
-
-- Supported chains: `GET https://api.blockvectra.com/v1/chains`
-- Plans, prices and limits: `GET https://console-api.blockvectra.com/v1/plans`
-- Service status: `GET https://api.blockvectra.com/v1/status`
-
-More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) and [AI agents guide](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp).
 
 ## goose: keyless documentation lookup
 
