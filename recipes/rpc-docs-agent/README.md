@@ -12,18 +12,20 @@ A small agent demonstration: ask how to connect to Robinhood Chain mainnet, retr
 - Remote MCP server: `https://docs.blockvectra.com/mcp`.
 - Tool subset to configure in the host: `search_docs`, `read_doc`.
 
-The instructions describe the intended behavior; they do not enforce host permissions. Connecting the remote server directly can expose its full catalog. For a host that runs command-based MCP servers, use the [fixed public source package](https://github.com/blockvectra/mcp/tree/e39ef37e45fb16d3dc33a225d4139be1220deba5):
+The instructions describe the intended behavior; they do not enforce host permissions. Connecting the remote server directly can expose its full catalog. For a host that runs command-based MCP servers, use the [published GitHub release v0.1.1](https://github.com/blockvectra/mcp/releases/tag/v0.1.1):
 
 ```json
 {
   "command": "npm",
   "args": [
     "exec", "--yes", "--package",
-    "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+    "https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz",
     "--", "blockvectra-docs-mcp"
   ]
 }
 ```
+
+The release publishes [SHA256SUMS](https://github.com/blockvectra/mcp/releases/download/v0.1.1/SHA256SUMS). The package SHA-256 is `36a5595189d08a1fd229880faa82a0bc38fd20a873ac7f25ad2f1e39a116c7fe`; verify it when downloading the package manually.
 
 It needs Node.js 22 or later and network access. The package provides the [documentation-only stdio entry](../../src/docs-cli.js). It filters discovery to `search_docs` and `read_doc`, rejects other calls locally and does not forward a BlockVectra key. It is not included in the published npm 0.1.0. Do not treat goose's `available_tools` field as a supported Lagrange field, or this MCP restriction as a sandbox for the host's other tools.
 
@@ -31,7 +33,7 @@ Use this brief from its own folder. It needs no local scripts, keys, personal se
 
 ## LagrangeCloud configuration
 
-The adjacent `lgr.yaml` follows LagrangeCloud's [manifest documentation](https://lgr.tensorblock.co/docs/lgr-yaml). Keep it with `AGENTS.md`; paths are relative to the manifest. It selects the documented `claude-code` harness and `tensorblock/claude-sonnet-5-5` model, one command-based MCP connection, no project secrets and no additional files. It does not import local MCP connections or logins. The egress list covers the source archive, npm dependencies and public documentation.
+The adjacent `lgr.yaml` follows LagrangeCloud's [manifest documentation](https://lgr.tensorblock.co/docs/lgr-yaml). Keep it with `AGENTS.md`; paths are relative to the manifest. It selects the documented `claude-code` harness and `tensorblock/claude-sonnet-5-5` model, one command-based MCP connection, no project secrets and no additional files. The egress list covers GitHub, the release download host `release-assets.githubusercontent.com`, npm dependencies and public documentation. Lagrange can discover local tool logins during deployment; use a clean project context without unrelated credentials.
 
 Use this folder in the intended LagrangeCloud project and review its model availability and credit before deploying. From that folder, the documented command is `lgr deploy`. A platform sign-in and project credit are separate from the no-key BlockVectra documentation lookup; the sponsored project arrangement is not confirmed. Do not upload a developer workspace or auto-import unrelated credentials.
 

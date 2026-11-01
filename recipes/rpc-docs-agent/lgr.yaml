@@ -12,13 +12,13 @@ mcp_servers:
       - exec
       - --yes
       - --package
-      - https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz
+      - https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz
       - --
       - blockvectra-docs-mcp
 egress:
   allow:
     - github.com
-    - codeload.github.com
+    - release-assets.githubusercontent.com
     - registry.npmjs.org
     - docs.blockvectra.com
 limits:
