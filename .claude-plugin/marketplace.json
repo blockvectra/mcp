@@ -16,7 +16,7 @@
         "source": "github",
         "repo": "blockvectra/skills"
       },
-      "description": "Agent skill for BlockVectra: keyless EVM JSON-RPC, Data API, programmatic sign-up, pricing and top-up.",
+      "description": "Agent skill for BlockVectra: keyless docs and discovery, RPC under each chain's public policy, and indexed data and account tools requiring an API key.",
       "skills": ["./"]
     }
   ]
