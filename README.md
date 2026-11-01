@@ -18,7 +18,7 @@ Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
 npx --yes --package @blockvectra/mcp@0.1.0 blockvectra-mcp
 ```
 
-This uses the published npm release `0.1.0`. For documentation only, use the fixed source snapshot below.
+This uses the published npm release `0.1.0`. For documentation only, use the versioned GitHub package below.
 
 Configure a stdio client:
 
@@ -48,10 +48,10 @@ Local verification: `npm test` runs only the serial mock HTTP/real stdio subproc
 For a setup helper that needs just `search_docs` and `read_doc`, use Node.js 22+:
 
 ```bash
-npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp
+npx --yes --package https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz blockvectra-docs-mcp
 ```
 
-This installs the fixed source snapshot and its dependencies; no BlockVectra account or key is needed.
+This installs the [GitHub 0.1.1 package](https://github.com/blockvectra/mcp/releases/tag/v0.1.1) and its dependencies; no BlockVectra account or key is needed. This package includes the documentation-only command; npm 0.1.0 does not. The GitHub package is available without waiting for an npm 0.1.1 publication. Verify a downloaded package against the release's [SHA256SUMS](https://github.com/blockvectra/mcp/releases/download/v0.1.1/SHA256SUMS) before installing it locally.
 
 For clients that use an `mcpServers` configuration, select the documentation-only command explicitly:
 
@@ -63,7 +63,7 @@ For clients that use an `mcpServers` configuration, select the documentation-onl
       "args": [
         "--yes",
         "--package",
-        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz",
         "blockvectra-docs-mcp"
       ]
     }

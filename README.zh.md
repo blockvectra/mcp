@@ -18,7 +18,7 @@
 npx --yes --package @blockvectra/mcp@0.1.0 blockvectra-mcp
 ```
 
-这里使用 npm 已发布的 `0.1.0`。只需文档时，请使用下方的固定源码快照。
+这里使用 npm 已发布的 `0.1.0`。只需文档时，请使用下方带版本的 GitHub 安装包。
 
 为 stdio 客户端配置：
 
@@ -48,10 +48,10 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 只需要 `search_docs` 和 `read_doc` 的接入助手，可用 Node.js 22+ 运行：
 
 ```bash
-npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp
+npx --yes --package https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz blockvectra-docs-mcp
 ```
 
-它会安装固定源码快照与依赖，无需 BlockVectra 账号或 key。
+它会安装 [GitHub 0.1.1 包](https://github.com/blockvectra/mcp/releases/tag/v0.1.1)及其依赖，无需 BlockVectra 账号或 key。该包包含双工具文档命令，npm 0.1.0 不包含；使用 GitHub 包无需等待 npm 0.1.1 发布。若先下载到本地安装，请先对照该发行版的 [SHA256SUMS](https://github.com/blockvectra/mcp/releases/download/v0.1.1/SHA256SUMS) 核验包摘要。
 
 使用 `mcpServers` 配置的客户端需明确选择文档专用命令：
 
@@ -63,7 +63,7 @@ npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3d
       "args": [
         "--yes",
         "--package",
-        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
+        "https://github.com/blockvectra/mcp/releases/download/v0.1.1/blockvectra-mcp-0.1.1.tgz",
         "blockvectra-docs-mcp"
       ]
     }
