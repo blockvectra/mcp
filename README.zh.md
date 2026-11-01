@@ -10,6 +10,31 @@
 
 连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
 
+## 一行接入
+
+服务器地址（Streamable HTTP，无需 key）：`https://docs.blockvectra.com/mcp`
+
+| 客户端 | 一行命令 / 链接 | 出处 |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Claude Code 插件（MCP 服务器 + `blockvectra-rpc` 技能） | `/plugin marketplace add blockvectra/mcp`，然后 `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces) |
+| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
+| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
+| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
+
+- **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
+- **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
+- **切勿**把 API key 或私钥写进工具参数或聊天；服务器只从 HTTP 请求头读取 key。
+
+链列表、价格和限额会变化，本文不列出，请实时查询：
+
+- 支持的链：`GET https://api.blockvectra.com/v1/chains`
+- 套餐、价格与限额：`GET https://console-api.blockvectra.com/v1/plans`
+- 服务状态：`GET https://api.blockvectra.com/v1/status`
+
+更多：[BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp)、[AI Agent 接入指南](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp)（英文）。
+
 ## 本地 stdio 桥接
 
 使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
@@ -76,31 +101,6 @@ npx --yes --package https://github.com/blockvectra/mcp/releases/download/v0.1.1/
 如果使用源码 checkout，先运行 `npm ci`，再改用 `node /absolute/path/to/blockvectra-mcp/src/docs-cli.js`。此入口只列出两个文档工具，其他工具调用和非文档方法在本地拒绝后不会转发；即使继承了 `BLOCKVECTRA_API_KEY`，也不转发该请求头。它还省略其他服务端能力，不向客户端暴露 sampling、roots 等反向请求。
 
 默认 `src/cli.js` 仍是上文说明的完整桥接。`@blockvectra/mcp@0.1.0` 不包含双工具文档入口。它限制的是这条 MCP 连接，不限制宿主 Agent 的其他工具、shell 或网络权限；模型与托管费用另计。
-
-## 一行接入
-
-服务器地址（Streamable HTTP，无需 key）：`https://docs.blockvectra.com/mcp`
-
-| 客户端 | 一行命令 / 链接 | 出处 |
-| --- | --- | --- |
-| Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
-| Claude Code 插件（MCP 服务器 + `blockvectra-rpc` 技能） | `/plugin marketplace add blockvectra/mcp`，然后 `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces) |
-| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
-| VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
-| Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
-| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
-
-- **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
-- **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
-- **切勿**把 API key 或私钥写进工具参数或聊天；服务器只从 HTTP 请求头读取 key。
-
-链列表、价格和限额会变化，本文不列出，请实时查询：
-
-- 支持的链：`GET https://api.blockvectra.com/v1/chains`
-- 套餐、价格与限额：`GET https://console-api.blockvectra.com/v1/plans`
-- 服务状态：`GET https://api.blockvectra.com/v1/status`
-
-更多：[BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp)、[AI Agent 接入指南](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp)（英文）。
 
 ## goose：免密钥查阅文档
 
