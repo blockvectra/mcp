@@ -17,6 +17,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | Client | One-line install | Source |
 | --- | --- | --- |
 | Claude Code | `claude mcp add --transport http blockvectra-docs https://docs.blockvectra.com/mcp` | [MCP in Claude Code](https://code.claude.com/docs/en/mcp) |
+| Codex | `codex mcp add blockvectra --url https://docs.blockvectra.com/mcp` | [Codex MCP setup](https://developers.openai.com/learn/docs-mcp) |
 | Claude Code plugin (MCP server + `blockvectra-rpc` skill) | `/plugin marketplace add blockvectra/mcp`, then `/plugin install blockvectra-docs@blockvectra` | [Create a marketplace](https://code.claude.com/docs/en/plugin-marketplaces), [Plugin dependencies](https://code.claude.com/docs/en/plugins/dependencies) |
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) (web link), or open `cursor://anysphere.cursor-deeplink/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9` | [MCP install links](https://cursor.com/docs/mcp/install-links), [web link form](https://cursor.com/docs/reference/deeplinks) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
