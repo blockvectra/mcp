@@ -15,10 +15,10 @@
 使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
 
 ```bash
-npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-mcp
+npx --yes --package @blockvectra/mcp@0.1.0 blockvectra-mcp
 ```
 
-`mcp` 命令也是完整桥接的别名，保留裸 `npx @blockvectra/mcp` 调用方式。只需文档时，请使用下方的独立命令。
+这里使用 npm 已发布的 `0.1.0`。只需文档时，请使用下方的固定源码快照。
 
 为 stdio 客户端配置：
 
@@ -27,7 +27,7 @@ npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-mcp
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.1", "blockvectra-mcp"]
+      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.0", "blockvectra-mcp"]
     }
   }
 }
@@ -48,10 +48,10 @@ CLI 固定桥接到 `https://docs.blockvectra.com/mcp`，不接受命令行参�
 只需要 `search_docs` 和 `read_doc` 的接入助手，可用 Node.js 22+ 运行：
 
 ```bash
-npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-docs-mcp
+npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp
 ```
 
-它会安装包与依赖，无需 BlockVectra 账号或 key。如果需要固定源码快照，可运行 `npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp`。
+它会安装固定源码快照与依赖，无需 BlockVectra 账号或 key。
 
 使用 `mcpServers` 配置的客户端需明确选择文档专用命令：
 
@@ -63,7 +63,7 @@ npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-docs-mcp
       "args": [
         "--yes",
         "--package",
-        "@blockvectra/mcp@0.1.1",
+        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
         "blockvectra-docs-mcp"
       ]
     }

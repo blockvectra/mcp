@@ -15,10 +15,10 @@ Connect to `https://docs.blockvectra.com/mcp` without headers for documentation 
 Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
 
 ```bash
-npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-mcp
+npx --yes --package @blockvectra/mcp@0.1.0 blockvectra-mcp
 ```
 
-The `mcp` executable is also an alias for the full bridge, preserving bare `npx @blockvectra/mcp` calls. For documentation only, use the separate command below.
+This uses the published npm release `0.1.0`. For documentation only, use the fixed source snapshot below.
 
 Configure a stdio client:
 
@@ -27,7 +27,7 @@ Configure a stdio client:
   "mcpServers": {
     "blockvectra-docs": {
       "command": "npx",
-      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.1", "blockvectra-mcp"]
+      "args": ["--yes", "--package", "@blockvectra/mcp@0.1.0", "blockvectra-mcp"]
     }
   }
 }
@@ -48,10 +48,10 @@ Local verification: `npm test` runs only the serial mock HTTP/real stdio subproc
 For a setup helper that needs just `search_docs` and `read_doc`, use Node.js 22+:
 
 ```bash
-npx --yes --package @blockvectra/mcp@0.1.1 blockvectra-docs-mcp
+npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp
 ```
 
-This installs the package and its dependencies; no BlockVectra account or key is needed. To use the fixed source snapshot instead, run `npx --yes --package https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz blockvectra-docs-mcp`.
+This installs the fixed source snapshot and its dependencies; no BlockVectra account or key is needed.
 
 For clients that use an `mcpServers` configuration, select the documentation-only command explicitly:
 
@@ -63,7 +63,7 @@ For clients that use an `mcpServers` configuration, select the documentation-onl
       "args": [
         "--yes",
         "--package",
-        "@blockvectra/mcp@0.1.1",
+        "https://github.com/blockvectra/mcp/archive/e39ef37e45fb16d3dc33a225d4139be1220deba5.tar.gz",
         "blockvectra-docs-mcp"
       ]
     }
