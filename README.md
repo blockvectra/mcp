@@ -22,10 +22,14 @@ No dependency installation, wallet, account or API key is needed. The reader che
 
 ## Documentation Skill for coding agents
 
-For source-linked setup answers, install the [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs) from your project directory with Node.js 22.20 or newer, then select your agent:
+For source-linked setup answers, install the [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs) from your project directory with Node.js 22.20 or newer. Choose the command for your agent; these project-scoped commands skip installer prompts:
 
 ```bash
-npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs
+# Codex
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs --agent codex --yes
+
+# Claude Code
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs --agent claude-code --yes
 ```
 
 Try: "How do I get started on Robinhood Chain? Separate mainnet from testnet and cite the docs."

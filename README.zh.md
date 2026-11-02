@@ -22,10 +22,14 @@ node src/public-read-cli.ts
 
 ## 编程 Agent 文档 Skill
 
-要让 Agent 查找接入步骤并附上来源，可在自己的项目目录安装 [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs)。需要 Node.js 22.20 或更新版本，执行后选择所用 Agent：
+要让 Agent 查找接入步骤并附上来源，可在自己的项目目录安装 [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs)。需要 Node.js 22.20 或更新版本。按所用 Agent 选择下面的命令，安装在当前项目内，跳过安装器交互提示：
 
 ```bash
-npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs
+# Codex
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs --agent codex --yes
+
+# Claude Code
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs --agent claude-code --yes
 ```
 
 试着问：“如何开始使用 Robinhood Chain？请区分主网与测试网，并引用文档来源。”
