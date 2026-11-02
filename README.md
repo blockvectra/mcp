@@ -10,6 +10,8 @@ Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain
 
 Connect to `https://docs.blockvectra.com/mcp` without headers for documentation and discovery. Robinhood Chain public endpoints allow supported RPC reads without a key; methods outside the public policy require an API key. Faucet claims require `x-api-key`. HTTP `202` means accepted; check the transaction receipt for on-chain inclusion (`status: "0x1"`), which is not finality.
 
+For a first mainnet RPC check before configuring an MCP client, use the [keyless TypeScript Quickstart](https://github.com/blockvectra/agent-quickstart#start-with-a-keyless-read). With Node.js >=24.12 and Git, it runs without installing dependencies: it reads the chain directory, verifies the chain ID, and reads the latest block number, with no wallet, account or API key.
+
 ## Documentation Skill for coding agents
 
 For source-linked setup answers, install the [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs) from your project directory with Node.js 22.20 or newer, then select your agent:

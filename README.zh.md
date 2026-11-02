@@ -10,6 +10,8 @@
 
 连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
 
+配置 MCP 客户端之前，也可以先用[免 key TypeScript Quickstart](https://github.com/blockvectra/agent-quickstart/blob/main/README.zh.md#先做无-key-读取)检查主网 RPC。Node.js >=24.12 配合 Git 即可运行，无需安装依赖：读取链目录、核对链 ID，再读取最新块号，无需钱包、账户或 API key。
+
 ## 编程 Agent 文档 Skill
 
 要让 Agent 查找接入步骤并附上来源，可在自己的项目目录安装 [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs)。需要 Node.js 22.20 或更新版本，执行后选择所用 Agent：
