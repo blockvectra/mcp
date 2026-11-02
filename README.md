@@ -10,6 +10,18 @@ Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain
 
 Connect to `https://docs.blockvectra.com/mcp` without headers for documentation and discovery. Robinhood Chain public endpoints allow supported RPC reads without a key; methods outside the public policy require an API key. Faucet claims require `x-api-key`. HTTP `202` means accepted; check the transaction receipt for on-chain inclusion (`status: "0x1"`), which is not finality.
 
+## Documentation Skill for coding agents
+
+For source-linked setup answers, install the [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs) from your project directory with Node.js 22.20 or newer, then select your agent:
+
+```bash
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs
+```
+
+Try: "How do I get started on Robinhood Chain? Separate mainnet from testnet and cite the docs."
+
+The Skill uses a configured BlockVectra MCP connection (`search_docs`, then `read_doc`) or your agent's HTTP reader to find and read Markdown pages. Documentation lookup needs no BlockVectra account or API key. Follow the MCP setup below to configure a server connection for RPC, indexed data and account tools.
+
 ## Install in one step
 
 Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`

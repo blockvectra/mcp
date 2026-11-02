@@ -10,6 +10,18 @@
 
 连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
 
+## 编程 Agent 文档 Skill
+
+要让 Agent 查找接入步骤并附上来源，可在自己的项目目录安装 [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs)。需要 Node.js 22.20 或更新版本，执行后选择所用 Agent：
+
+```bash
+npx --yes skills@1.7.4 add blockvectra/agent-quickstart --skill blockvectra-docs
+```
+
+试着问：“如何开始使用 Robinhood Chain？请区分主网与测试网，并引用文档来源。”
+
+Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）或 Agent 的 HTTP 阅读工具查找并读取 Markdown 页面。查文档无需 BlockVectra 账户或 API key。RPC、已索引数据与账户工具的 MCP 连接配置见下方。
+
 ## 一行接入
 
 服务器地址（Streamable HTTP，无需 key）：`https://docs.blockvectra.com/mcp`
