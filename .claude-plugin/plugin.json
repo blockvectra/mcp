@@ -1,6 +1,6 @@
 {
   "name": "blockvectra-docs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "BlockVectra docs MCP server (chains, methods, pricing, status, docs, keyless read-only JSON-RPC) plus the blockvectra-rpc agent skill.",
   "author": {
     "name": "BlockVectra"
