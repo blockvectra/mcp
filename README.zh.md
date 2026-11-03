@@ -38,6 +38,10 @@ Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）
 
 ## 一行接入
 
+[![MCP 连接检查](https://mcp.aianytime.net/badge/blockvectra.svg)](https://mcp.aianytime.net/s/blockvectra/)
+
+连接前，可查看 [AI Anytime 的独立报告](https://mcp.aianytime.net/s/blockvectra/)，了解最近一次 MCP 初始化和工具发现的结果。这些检查覆盖 MCP 连接，不代表各条链 RPC 调用的结果。
+
 服务器地址（Streamable HTTP，无需 key）：`https://docs.blockvectra.com/mcp`
 
 | 客户端 | 一行命令 / 链接 | 出处 |
