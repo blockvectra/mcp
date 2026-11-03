@@ -38,6 +38,10 @@ The Skill uses a configured BlockVectra MCP connection (`search_docs`, then `rea
 
 ## Install in one step
 
+[![MCP connection checks](https://mcp.aianytime.net/badge/blockvectra.svg)](https://mcp.aianytime.net/s/blockvectra/)
+
+Before connecting, you can check [AI Anytime's independent report](https://mcp.aianytime.net/s/blockvectra/) for the latest MCP initialization and tool-discovery results. These checks cover the MCP connection, not individual blockchain RPC calls.
+
 Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 
 | Client | One-line install | Source |
