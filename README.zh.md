@@ -48,7 +48,7 @@ Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcCJ9) | [MCP install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
-| Antigravity | `agy plugin install https://github.com/blockvectra/mcp` | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
+| Antigravity | [项目级安装步骤](#antigravity-插件) | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
 
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
