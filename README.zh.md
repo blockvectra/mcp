@@ -20,6 +20,14 @@ node src/public-read-cli.ts
 
 无需安装依赖、钱包、账户或 API key。程序读取链目录、核对链 ID，再读取最新块号，最多三个 HTTP 请求，其中两个是 RPC。若目录未声明所需公共端点和方法，会在 RPC 前停止。
 
+## 读取 Robinhood Chain 上的 HoodFi 名称记录
+
+查询 HoodFi 名称保存的地址，请使用 [HoodFi 名称记录指南](https://docs.blockvectra.com/zh/guides/hoodfi-name-records/?ref=gh-mcp-hoodfi)。指南选取 Robinhood coin type `2147488311`，并在同一 canonical block hash 比较 coin type `60`。Robinhood 记录缺失或无效时停止，不能回退到 coin type 60；两条记录不同时，先确认 Robinhood 收款地址再使用。
+
+配置上方文档连接后，可以这样提问：“查找并阅读 HoodFi 名称记录指南，解释如何选择 Robinhood 记录、在同一块哈希比较两种 coin type，以及出错时如何停止。引用来源，不执行 RPC 或发送交易。”
+
+查阅指南无需 key；运行其中最多四次请求的诊断脚本，需要你自己的 API key，通过带 key RPC 端点的 `x-api-key` 请求头传入。不要把凭据写入提示词或工具参数。诊断只读取记录，不转账。
+
 ## 编程 Agent 文档 Skill
 
 要让 Agent 查找接入步骤并附上来源，可在自己的项目目录安装 [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs)。需要 Node.js 22.20 或更新版本。按所用 Agent 选择下面的命令，安装在当前项目内，跳过安装器交互提示：
