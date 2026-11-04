@@ -10,13 +10,15 @@
 
 连接 `https://docs.blockvectra.com/mcp`，无需请求头即可读取文档和发现服务。Robinhood Chain 公共端点允许的 RPC 读取无需 key；公共策略以外的方法需要 API key。Faucet 领水需要 `x-api-key`。HTTP `202` 仅表示已受理；应查询交易回执，确认链上执行成功（`status: "0x1"`），这不等于最终性。
 
-配置 MCP 客户端之前，也可以先用[免 key TypeScript Quickstart 固定版](https://github.com/blockvectra/agent-quickstart/releases/tag/keyless-read-node22-2026.11.02)检查主网 RPC。需要 Node.js 22（>=22.18）或 Node.js >=24.12，以及 Git：
+配置 MCP 客户端之前，也可以先用[免 key TypeScript Quickstart 固定版](https://github.com/blockvectra/agent-quickstart/releases/tag/keyless-chain-id-2026.11.02)检查主网 RPC。需要 Node.js 22（>=22.18）或 Node.js >=24.12，以及 Git：
 
 ```bash
-git clone --branch keyless-read-node22-2026.11.02 --depth 1 https://github.com/blockvectra/agent-quickstart.git
+git clone --branch keyless-chain-id-2026.11.02 --depth 1 https://github.com/blockvectra/agent-quickstart.git
 cd agent-quickstart
 node src/public-read-cli.ts
 ```
+
+要读取其他链，传入十进制链 ID：`node src/public-read-cli.ts 56` 读取 BNB Smart Chain，改为 `1` 读取 Ethereum 主网，改为 `57073` 读取 Ink。不传参数时，默认读取 Robinhood 主网（`4663`）。
 
 无需安装依赖、钱包、账户或 API key。程序读取链目录、核对链 ID，再读取最新块号，最多三个 HTTP 请求，其中两个是 RPC。若目录未声明所需公共端点和方法，会在 RPC 前停止。
 
