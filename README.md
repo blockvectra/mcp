@@ -62,6 +62,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | VS Code (link) | `vscode:mcp/install?%7B%22name%22%3A%22blockvectra-docs%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fdocs.blockvectra.com%2Fmcp%22%7D` | [MCP developer guide](https://code.visualstudio.com/api/extension-guides/ai/mcp) |
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 | Antigravity | [Project-local installation](#antigravity-plugin) | [Antigravity plugins](https://www.antigravity.google/docs/plugins?tab=cli) |
+| OpenCode | [Project configuration](#opencode-opencodejson) | [OpenCode MCP servers](https://opencode.ai/v2/docs/mcp-servers/) |
 
 The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
 
@@ -328,6 +329,46 @@ url = "https://docs.blockvectra.com/mcp"
 # optional: read the key from an environment variable
 env_http_headers = { "x-api-key" = "BLOCKVECTRA_API_KEY" }
 ```
+
+### OpenCode (`opencode.json`)
+
+Check `opencode --version`, then merge the matching configuration into your project's `opencode.json`. Connecting and reading documentation need no BlockVectra account or key.
+
+**OpenCode 2** puts server entries under `mcp.servers`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "blockvectra": {
+        "type": "remote",
+        "url": "https://docs.blockvectra.com/mcp",
+        "oauth": false
+      }
+    }
+  }
+}
+```
+
+**OpenCode 1** puts them directly under `mcp`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "blockvectra": {
+      "type": "remote",
+      "url": "https://docs.blockvectra.com/mcp",
+      "oauth": false
+    }
+  }
+}
+```
+
+Run `opencode mcp list` from that project and check that `blockvectra` is connected. For a first task, ask OpenCode to find and read the Robinhood Chain mainnet setup guide with `search_docs` and `read_doc`, then cite the page. This task needs no RPC or transaction.
+
+For tools that require a key, set `BLOCKVECTRA_API_KEY` in your local environment and add `"headers": {"x-api-key": "{env:BLOCKVECTRA_API_KEY}"}` inside the `blockvectra` server object. Keep the key out of the file and chat; shell syntax such as `$BLOCKVECTRA_API_KEY` is not substituted in this JSON. See the [v2 MCP guide](https://opencode.ai/v2/docs/mcp-servers/) or [v1 MCP guide](https://docs.opencode.ai/docs/mcp-servers/) for your version.
 
 ## Registry
 
