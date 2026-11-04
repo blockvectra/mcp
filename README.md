@@ -20,6 +20,14 @@ node src/public-read-cli.ts
 
 No dependency installation, wallet, account or API key is needed. The reader checks the chain directory, verifies the chain ID, then reads the latest block number: at most three HTTP requests, including two RPC calls. It stops before RPC if the directory does not advertise the required public endpoint and methods.
 
+## Read HoodFi name records on Robinhood Chain
+
+For an address stored under a HoodFi name, follow the [HoodFi name-record guide](https://docs.blockvectra.com/en/guides/hoodfi-name-records/?ref=gh-mcp-hoodfi). It selects Robinhood coin type `2147488311` and compares coin type `60` at the same canonical block hash. A missing or invalid Robinhood record stops the read; coin type 60 is not a fallback. If the records differ, confirm the Robinhood destination before using it.
+
+With the documentation connection above, ask: "Find and read the HoodFi name-record guide. Explain how to select the Robinhood record, compare the two coin types at one block hash, and stop on errors. Cite the source; do not run RPC or send a transaction."
+
+Reading the guide needs no key. Running its four-request diagnostic requires your own API key in the `x-api-key` header on the keyed RPC endpoint. Keep credentials out of prompts and tool arguments. The diagnostic reads records only; it does not send funds.
+
 ## Documentation Skill for coding agents
 
 For source-linked setup answers, install the [blockvectra-docs Skill](https://github.com/blockvectra/agent-quickstart/tree/main/skills/blockvectra-docs) from your project directory with Node.js 22.20 or newer. Choose the command for your agent; these project-scoped commands skip installer prompts:
