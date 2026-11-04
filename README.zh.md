@@ -66,6 +66,14 @@ Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）
 
 更多：[BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp)、[AI Agent 接入指南](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp)（英文）。
 
+## 试一次链上读取
+
+使用上方免 key 的 MCP 连接，把下面的任务交给 Agent：
+
+> 调用一次 `list_chains`，找到 Ink（链 ID 57073），使用返回的 `chain` 标识。仅当其 `public.url` 存在，且 `public.methods` 同时包含 `eth_chainId` 和 `eth_blockNumber` 时继续。调用 `rpc_call`，传入该链、`method="eth_chainId"`、`params=[]`；将十六进制结果转为整数，不等于 57073 就停止。然后对同一链调用 `rpc_call`，传入 `method="eth_blockNumber"`、`params=[]`。给出链 ID、返回块号和本次观测的 UTC 时间。出错即停，不重试、不注册、不建 key、不发送交易。
+
+此任务最多串行调用三个 MCP 工具，无需钱包、账户、API key、克隆仓库或本地 Node.js。成功读取只核对链身份并取得块号，不证明历史覆盖、索引新鲜度或性能。若接入的是下方仅文档 stdio 入口，它只提供 `search_docs` 和 `read_doc`；这个任务请使用上方完整远程连接。
+
 ## 本地 stdio 桥接
 
 使用 Node.js 22 或更高版本运行 MIT 许可的 stdio 桥接：
