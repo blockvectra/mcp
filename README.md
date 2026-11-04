@@ -71,6 +71,14 @@ Chains, prices and limits change, so this README does not list them. Read them l
 
 More: [BlockVectra for agents](https://blockvectra.com/en/agents/?ref=gh-mcp) and [AI agents guide](https://docs.blockvectra.com/en/guides/ai-agents/?ref=gh-mcp).
 
+## Try a first chain read
+
+With the keyless MCP connection above, give your agent this task:
+
+> Call `list_chains` once and find Ink (chain ID 57073). Use its returned `chain` slug. Continue only if its `public.url` exists and `public.methods` includes both `eth_chainId` and `eth_blockNumber`. Call `rpc_call` with that chain, `method="eth_chainId"` and `params=[]`; decode the hexadecimal result and stop unless it equals 57073. Then call `rpc_call` with the same chain, `method="eth_blockNumber"` and `params=[]`. Show the chain ID, returned block number and UTC observation time. Stop on an error; do not retry, register, create a key or send a transaction.
+
+This task uses at most three MCP tool calls, sequentially. It needs no wallet, account, API key, repository checkout or local Node.js. A successful read checks chain identity and obtains a block number; it does not verify historical coverage, indexing freshness or performance. If you connected the documentation-only stdio entry below, it exposes only `search_docs` and `read_doc`; use the full remote connection above for this task.
+
 ## Local stdio bridge
 
 Use Node.js 22 or newer to run the MIT-licensed stdio bridge:
