@@ -61,6 +61,7 @@ Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs","type":"http","url":"https://docs.blockvectra.com/mcp"}'` | [Use MCP servers in VS Code](https://code.visualstudio.com/docs/agent-customization/mcp-servers) |
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 | Antigravity | [项目级安装步骤](#antigravity-插件) | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
+| OpenCode | [项目配置](#opencode-opencodejson) | [OpenCode MCP 服务](https://opencode.ai/v2/docs/mcp-servers/) |
 
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
@@ -323,6 +324,46 @@ url = "https://docs.blockvectra.com/mcp"
 # 可选：从环境变量读取 key
 env_http_headers = { "x-api-key" = "BLOCKVECTRA_API_KEY" }
 ```
+
+### OpenCode (`opencode.json`)
+
+先用 `opencode --version` 查看版本，再把对应配置合并到项目的 `opencode.json`。连接和读取文档不需要 BlockVectra 账号或 key。
+
+**OpenCode 2** 把服务放在 `mcp.servers` 下：
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "blockvectra": {
+        "type": "remote",
+        "url": "https://docs.blockvectra.com/mcp",
+        "oauth": false
+      }
+    }
+  }
+}
+```
+
+**OpenCode 1** 直接放在 `mcp` 下：
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "blockvectra": {
+      "type": "remote",
+      "url": "https://docs.blockvectra.com/mcp",
+      "oauth": false
+    }
+  }
+}
+```
+
+在该项目运行 `opencode mcp list`，确认 `blockvectra` 显示已连接。首次可以让 OpenCode 用 `search_docs` 和 `read_doc` 查找、读取 Robinhood Chain 主网接入指南并引用页面；这项任务不需要 RPC 或交易。
+
+需要 key 的工具可从本地环境变量读取：先设置 `BLOCKVECTRA_API_KEY`，再在 `blockvectra` 服务对象中加入 `"headers": {"x-api-key": "{env:BLOCKVECTRA_API_KEY}"}`。不要把 key 写进文件或聊天；这里不会展开 `$BLOCKVECTRA_API_KEY` 这类 shell 写法。按版本参阅 [v2 MCP 指南](https://opencode.ai/v2/docs/mcp-servers/)或 [v1 MCP 指南](https://docs.opencode.ai/docs/mcp-servers/)。
 
 ## 注册表
 
