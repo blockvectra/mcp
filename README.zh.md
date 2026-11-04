@@ -277,9 +277,12 @@ curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigra
 
 ```bash
 claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
-# 可选 key 使用私有的环境变量请求头配置，见下方 Codex env_http_headers 示例。
-# 绝不通过 CLI 参数传递 key。
+claude mcp list
 ```
+
+检查输出是否显示 `Connected`。[Claude Code 2.1.280 连接记录](https://gist.github.com/gjwang/4ec1d04cdc5a1ed99c65ec334e0ca51a)提供实际输出与配置范围。
+
+需要 key 的工具：启动 Claude Code 前设置 `BLOCKVECTRA_API_KEY`，在服务配置中使用 `"headers": {"x-api-key": "${BLOCKVECTRA_API_KEY}"}`。参见 [Claude Code 环境变量展开说明](https://code.claude.com/docs/en/mcp#environment-variable-expansion-in-mcpjson)。文件只保留变量引用，绝不通过 CLI 参数传递 key。
 
 ### Cursor（`.cursor/mcp.json`）
 

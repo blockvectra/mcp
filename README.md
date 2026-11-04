@@ -282,9 +282,12 @@ Each snippet below follows the client's own documentation. Add the optional key 
 
 ```bash
 claude mcp add --transport http blockvectra https://docs.blockvectra.com/mcp
-# For an optional key, use private environment-backed header settings;
-# see the Codex env_http_headers example below. Never pass a key as a CLI argument.
+claude mcp list
 ```
+
+Check for `Connected` in the output. A [saved Claude Code 2.1.280 connection check](https://gist.github.com/gjwang/4ec1d04cdc5a1ed99c65ec334e0ca51a) includes the observed output and configuration scope.
+
+For tools that require a key, set `BLOCKVECTRA_API_KEY` before starting Claude Code and use `"headers": {"x-api-key": "${BLOCKVECTRA_API_KEY}"}` in the server configuration. See [Claude Code's environment-variable expansion](https://code.claude.com/docs/en/mcp#environment-variable-expansion-in-mcpjson). Keep only the variable reference in the file; never pass the key as a CLI argument.
 
 ### Cursor (`.cursor/mcp.json`)
 
