@@ -289,6 +289,10 @@ The keyless Cursor configuration is in [`.mcp.json`](.mcp.json), referenced by t
 
 Follow the [Kilo CLI setup](llms-install.md#kilo-cli) to add the hosted server to `kilo.json`, check its connection, and ask for a first documentation read. Kilo CLI uses `"type": "remote"`; no BlockVectra key is needed for documentation lookup.
 
+## OpenCode: project connection
+
+Follow the [OpenCode setup](llms-install.md#opencode) to add the hosted server to `opencode.json`, check its connection without a model call, and ask for a first documentation read. No BlockVectra key is needed for documentation lookup.
+
 ## Connect a client
 
 Each snippet below follows the client's own documentation. Add the optional key header as that documentation describes for custom headers.
