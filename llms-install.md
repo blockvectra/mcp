@@ -67,30 +67,9 @@ This documentation task needs no BlockVectra account, wallet or API key. `kilo m
 
 ## OpenCode
 
-Merge this entry into the `mcp` object in your project's `opencode.json`, keeping your existing settings and servers:
+Check `opencode --version`, then follow the [versioned OpenCode configuration](README.md#opencode-opencodejson). OpenCode 1 and 2 use different configuration layouts; keep your existing settings and servers.
 
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "blockvectra-docs": {
-      "type": "remote",
-      "url": "https://docs.blockvectra.com/mcp",
-      "enabled": true,
-      "oauth": false,
-      "timeout": 15000
-    }
-  }
-}
-```
-
-Run `opencode mcp list` from the project and check that `blockvectra-docs` is connected. This connection check does not call a model or need a BlockVectra account, wallet or API key.
-
-With your model provider configured, start OpenCode in the project and ask:
-
-> Call the `blockvectra-docs` server's `read_doc` tool with `{"path":"guides/mcp-server","lang":"en"}` and show the returned source link.
-
-Documentation reads need no BlockVectra key; model usage follows your model provider's billing. See the [official OpenCode MCP guide](https://opencode.ai/docs/mcp-servers/) for remote-server settings and private headers for authenticated tools.
+The guide includes the connection check and a first documentation task. Documentation needs no BlockVectra account or API key; model usage follows your configured model provider's billing.
 
 ## Cursor and other agent clients
 
