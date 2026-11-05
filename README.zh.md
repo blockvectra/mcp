@@ -278,7 +278,7 @@ curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigra
 
 ## 在 Cursor / Cline 中使用
 
-免 key 的 Cursor 配置见 [`.mcp.json`](.mcp.json)，由 [Cursor 插件清单](.cursor-plugin/plugin.json) 引用。Cline 的 Streamable HTTP 安装步骤及可选 `x-api-key` 请求头配置见 [llms-install.md](llms-install.md)（英文）。首次连接不填 headers，先调用 `list_chains`，再以 `{"path":"quickstart","lang":"en"}` 调用 `read_doc`。
+免 key 的 Cursor 配置见 [`.mcp.json`](.mcp.json)，由 [Cursor 插件清单](.cursor-plugin/plugin.json) 引用。Cline 的 Streamable HTTP 安装步骤及可选 `x-api-key` 请求头配置见 [llms-install.md](llms-install.md)（英文）。终端用户可按 [Cline CLI 安装命令](llms-install.md#cline-cli)添加服务器，随后启动新的 Cline 会话，以 `{"path":"guides/mcp-server","lang":"en"}` 调用 `read_doc`；该英文文档读取路径已验证，不需要 BlockVectra API key。首次连接不填 headers，先调用 `list_chains`，再以 `{"path":"quickstart","lang":"en"}` 调用 `read_doc`。
 
 ## 接入客户端
 
