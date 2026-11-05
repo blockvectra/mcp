@@ -30,6 +30,10 @@ For Cursor, merge the server definition from [`.mcp.json`](.mcp.json) into `.cur
 
 For other clients, add the same endpoint using their Streamable HTTP transport and leave authentication headers empty for the first connection. Transport field names vary by client; the Cline `type` value is specific to Cline.
 
+## ToolHive
+
+Use the [ToolHive proxy instructions](README.md#toolhive-local-http-proxy). In ToolHive 0.62.0, set the proxy target to the origin `https://docs.blockvectra.com`, and connect your MCP client to `http://127.0.0.1:55840/mcp`. Putting `/mcp` in `--target-uri` is rejected by that version. No BlockVectra key is needed for the documentation check.
+
 ## Local stdio clients
 
 For a client that uses a local stdio command, install Node.js 22 or newer and use the published bridge:

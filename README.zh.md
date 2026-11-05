@@ -64,6 +64,7 @@ Skill 通过已配置的 BlockVectra MCP（先 `search_docs`，再 `read_doc`）
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 | Antigravity | [项目级安装步骤](#antigravity-插件) | [Antigravity 插件](https://www.antigravity.google/docs/plugins?tab=cli) |
 | OpenCode | [项目配置](#opencode-opencodejson) | [OpenCode MCP 服务](https://opencode.ai/v2/docs/mcp-servers/) |
+| ToolHive | [本地 HTTP 代理](#toolhive本地-http-代理) | [ToolHive 代理参考](https://docs.stacklok.com/toolhive/reference/cli/thv_proxy) |
 
 - **地址：** `https://docs.blockvectra.com/mcp`（Streamable HTTP，无状态）
 - **认证：** 可选请求头 `x-api-key`（BlockVectra API key），也接受 `Authorization: Bearer <key>`。没有 key 时可使用文档、链、价格、状态类工具，以及各链公开端点允许的 JSON-RPC 方法。
@@ -174,6 +175,23 @@ goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp
 ```
 
 该会话会发现完整工具目录；文档 recipe 是工具范围更小的起点。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
+
+## ToolHive：本地 HTTP 代理
+
+安装 [ToolHive CLI](https://docs.stacklok.com/toolhive/guides-cli/install) 后，在终端前台启动代理：
+
+```bash
+thv proxy blockvectra-docs --target-uri https://docs.blockvectra.com \
+  --host 127.0.0.1 --port 55840
+```
+
+保持这个终端运行，在 MCP 客户端中添加 Streamable HTTP 地址 `http://127.0.0.1:55840/mcp`，认证请求头留空。如果端口已占用，两处同时改用其他空闲端口。用完后按 Ctrl+C 停止代理。
+
+ToolHive **0.62.0** 的 `--target-uri` 只接受 origin；在这里加 `/mcp` 会在连接前失败。客户端地址需要保留 `/mcp`，代理会将该路径转发到远程服务器。参见[该版本的目标地址校验](https://github.com/stacklok/toolhive/blob/v0.62.0/cmd/thv/app/proxy.go#L587-L590)。
+
+首次检查可让客户端以 `{"path":"guides/mcp-server","lang":"zh"}` 调用 `read_doc`，并展示返回的文档来源链接。不需要 BlockVectra 账号、钱包或 API key。代理会暴露远程服务器的完整工具目录；这一步只读取文档。
+
+2026-11-05 已用 ToolHive 0.62.0 验证该代理路径的初始化、工具发现及一次英文 `read_doc` 成功；未验证链上 RPC、索引数据或账户工具。模型提供方的配置和费用仍由你的 MCP 客户端处理。
 
 ## 可复用的 RPC 文档 Agent
 

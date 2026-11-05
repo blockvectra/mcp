@@ -65,6 +65,7 @@ Server URL (Streamable HTTP, no key needed): `https://docs.blockvectra.com/mcp`
 | Gemini CLI | `gemini extensions install https://github.com/blockvectra/mcp --ref main` | [Gemini CLI extensions](https://geminicli.com/docs/extensions/reference/) |
 | Antigravity | [Project-local installation](#antigravity-plugin) | [Antigravity plugins](https://www.antigravity.google/docs/plugins?tab=cli) |
 | OpenCode | [Project configuration](#opencode-opencodejson) | [OpenCode MCP servers](https://opencode.ai/v2/docs/mcp-servers/) |
+| ToolHive | [Local HTTP proxy](#toolhive-local-http-proxy) | [ToolHive proxy reference](https://docs.stacklok.com/toolhive/reference/cli/thv_proxy) |
 
 The Cursor `config` value is the base64 of `{"url":"https://docs.blockvectra.com/mcp"}`. The VS Code link is the URL-encoded JSON server configuration.
 
@@ -179,6 +180,23 @@ goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp
 ```
 
 That session discovers the full tool catalog; the recipe is the smaller documentation-only starting point. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
+
+## ToolHive: local HTTP proxy
+
+With [ToolHive CLI](https://docs.stacklok.com/toolhive/guides-cli/install) installed, start a foreground proxy:
+
+```bash
+thv proxy blockvectra-docs --target-uri https://docs.blockvectra.com \
+  --host 127.0.0.1 --port 55840
+```
+
+Keep that terminal open. Add `http://127.0.0.1:55840/mcp` to your MCP client as a Streamable HTTP server, with no authentication headers. If the port is occupied, choose another unused port in both places. Stop the proxy with Ctrl+C when finished.
+
+In ToolHive **0.62.0**, `--target-uri` must contain only the origin; adding `/mcp` there fails before connecting. The client URL includes `/mcp`, which the proxy forwards to the remote server. See the [versioned target validation](https://github.com/stacklok/toolhive/blob/v0.62.0/cmd/thv/app/proxy.go#L587-L590).
+
+For a first check, ask your client to call `read_doc` with `{"path":"guides/mcp-server","lang":"en"}` and show the returned source link. This needs no BlockVectra account, wallet or API key. The proxy exposes the full remote tool catalog; the first check uses only documentation.
+
+This route was tested on 2026-11-05 with ToolHive 0.62.0: initialize, tool discovery and one `read_doc` succeeded. It did not test blockchain RPC, indexed data or account tools. Model-provider setup and charges remain part of your MCP client.
 
 ## Portable RPC documentation agent
 
