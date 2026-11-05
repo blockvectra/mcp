@@ -280,6 +280,10 @@ curl --fail --location https://raw.githubusercontent.com/blockvectra/mcp/antigra
 
 免 key 的 Cursor 配置见 [`.mcp.json`](.mcp.json)，由 [Cursor 插件清单](.cursor-plugin/plugin.json) 引用。Cline 的 Streamable HTTP 安装步骤及可选 `x-api-key` 请求头配置见 [llms-install.md](llms-install.md)（英文）。终端用户可按 [Cline CLI 安装命令](llms-install.md#cline-cli)添加服务器，随后启动新的 Cline 会话，以 `{"path":"guides/mcp-server","lang":"en"}` 调用 `read_doc`；该英文文档读取路径已验证，不需要 BlockVectra API key。首次连接不填 headers，先调用 `list_chains`，再以 `{"path":"quickstart","lang":"en"}` 调用 `read_doc`。
 
+## Kilo CLI：项目内连接
+
+按 [Kilo CLI 接入步骤](llms-install.md#kilo-cli)把托管服务器加入 `kilo.json`，检查连接，再让 Agent 试读一篇文档。Kilo CLI 的配置使用 `"type": "remote"`；查阅文档不需要 BlockVectra API key。
+
 ## 接入客户端
 
 下列片段均依据各客户端自己的官方文档；可选的 key 请求头按该文档对自定义请求头的写法添加。
