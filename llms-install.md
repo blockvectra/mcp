@@ -65,6 +65,33 @@ With your model provider configured in Kilo, start `kilo` in the project and ask
 
 This documentation task needs no BlockVectra account, wallet or API key. `kilo mcp list` checks the connection without calling a model; the documentation task uses the model provider you configure in Kilo. For config paths and private header configuration, see the [official Kilo MCP guide](https://kilo.ai/docs/automate/mcp/using-in-cli).
 
+## OpenCode
+
+Merge this entry into the `mcp` object in your project's `opencode.json`, keeping your existing settings and servers:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "blockvectra-docs": {
+      "type": "remote",
+      "url": "https://docs.blockvectra.com/mcp",
+      "enabled": true,
+      "oauth": false,
+      "timeout": 15000
+    }
+  }
+}
+```
+
+Run `opencode mcp list` from the project and check that `blockvectra-docs` is connected. This connection check does not call a model or need a BlockVectra account, wallet or API key.
+
+With your model provider configured, start OpenCode in the project and ask:
+
+> Call the `blockvectra-docs` server's `read_doc` tool with `{"path":"guides/mcp-server","lang":"en"}` and show the returned source link.
+
+Documentation reads need no BlockVectra key; model usage follows your model provider's billing. See the [official OpenCode MCP guide](https://opencode.ai/docs/mcp-servers/) for remote-server settings and private headers for authenticated tools.
+
 ## Cursor and other agent clients
 
 For Cursor, merge the server definition from [`.mcp.json`](.mcp.json) into `.cursor/mcp.json` in your project or `~/.cursor/mcp.json` for global use. This repository also includes a [Cursor plugin manifest](.cursor-plugin/plugin.json) referencing that file. See [Cursor's MCP documentation](https://cursor.com/docs/context/mcp).
