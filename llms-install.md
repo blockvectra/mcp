@@ -24,6 +24,20 @@ Alternatively, open **Configure → Configure MCP Servers** and merge this entry
 
 Cline requires `"type": "streamableHttp"`; omitting it selects legacy SSE. See the [official Cline MCP instructions](https://github.com/cline/cline/blob/main/docs/mcp/mcp-overview.mdx).
 
+## Cline CLI
+
+For Cline CLI **3.0.74**, add the remote server from your terminal:
+
+```sh
+cline mcp add blockvectra-docs https://docs.blockvectra.com/mcp --transport streamableHttp --yes --json
+```
+
+This saves the server in the CLI's MCP settings. Start a new Cline session after adding it, then ask:
+
+> Call the `blockvectra-docs` server's `read_doc` tool with `{"path":"guides/mcp-server","lang":"en"}` and show the returned source link.
+
+No BlockVectra API key is needed for this read. Configure your model provider in Cline first; its model usage is billed by that provider. See the [official CLI guide](https://github.com/cline/cline/tree/main/apps/cli#readme).
+
 ## Cursor and other agent clients
 
 For Cursor, merge the server definition from [`.mcp.json`](.mcp.json) into `.cursor/mcp.json` in your project or `~/.cursor/mcp.json` for global use. This repository also includes a [Cursor plugin manifest](.cursor-plugin/plugin.json) referencing that file. See [Cursor's MCP documentation](https://cursor.com/docs/context/mcp).

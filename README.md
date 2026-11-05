@@ -283,7 +283,7 @@ Note: `get_deposit_address` and the other keyed tools return an error that point
 
 ## Use in Cursor / Cline
 
-The keyless Cursor configuration is in [`.mcp.json`](.mcp.json), referenced by the [Cursor plugin manifest](.cursor-plugin/plugin.json). For Cline's Streamable HTTP setup and optional `x-api-key` headers, follow [llms-install.md](llms-install.md). Start without headers: call `list_chains`, then `read_doc` with `{"path":"quickstart","lang":"en"}`.
+The keyless Cursor configuration is in [`.mcp.json`](.mcp.json), referenced by the [Cursor plugin manifest](.cursor-plugin/plugin.json). For Cline's Streamable HTTP setup and optional `x-api-key` headers, follow [llms-install.md](llms-install.md). Terminal users can use the [Cline CLI install command and first documentation read](llms-install.md#cline-cli). Start without headers: call `list_chains`, then `read_doc` with `{"path":"quickstart","lang":"en"}`.
 
 ## Connect a client
 
