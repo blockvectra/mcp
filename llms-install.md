@@ -38,6 +38,33 @@ This saves the server in the CLI's MCP settings. Start a new Cline session after
 
 No BlockVectra API key is needed for this read. Configure your model provider in Cline first; its model usage is billed by that provider. See the [official CLI guide](https://github.com/cline/cline/tree/main/apps/cli#readme).
 
+## Kilo CLI
+
+For Kilo CLI **7.8.18**, merge this entry into your project's `kilo.json`. Keep any existing settings and other MCP servers:
+
+```json
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "mcp": {
+    "blockvectra": {
+      "type": "remote",
+      "url": "https://docs.blockvectra.com/mcp",
+      "enabled": true,
+      "oauth": false,
+      "timeout": 15000
+    }
+  }
+}
+```
+
+Run `kilo mcp list` from that project and check that `blockvectra` is connected. Kilo uses `mcp` and `"type": "remote"` here; the marketplace's `"type": "streamable-http"` entry is not the CLI config format.
+
+With your model provider configured in Kilo, start `kilo` in the project and ask:
+
+> Call the `blockvectra` server's `read_doc` tool with `{"path":"guides/mcp-server","lang":"en"}` and show the returned source link.
+
+This documentation task needs no BlockVectra account, wallet or API key. `kilo mcp list` checks the connection without calling a model; the documentation task uses the model provider you configure in Kilo. For config paths and private header configuration, see the [official Kilo MCP guide](https://kilo.ai/docs/automate/mcp/using-in-cli).
+
 ## Cursor and other agent clients
 
 For Cursor, merge the server definition from [`.mcp.json`](.mcp.json) into `.cursor/mcp.json` in your project or `~/.cursor/mcp.json` for global use. This repository also includes a [Cursor plugin manifest](.cursor-plugin/plugin.json) referencing that file. See [Cursor's MCP documentation](https://cursor.com/docs/context/mcp).
