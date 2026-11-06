@@ -8,7 +8,18 @@ Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [Blo
 
 For setup answers with source links, connect directly to `https://docs.blockvectra.com/mcp/docs` using Streamable HTTP. It exposes only `search_docs` and `read_doc`, needs no BlockVectra account or API key, and requires no local bridge or package installation.
 
-For remote URL settings below, use this URL and a distinct server name such as `blockvectra-docs-only`. Packaged plugins and stdio commands keep their existing scopes. With ToolHive, keep `--target-uri` set to the origin and put `/mcp/docs` on the loopback client URL. Ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
+Choose your installed client below. Each entry adds the documentation endpoint as `blockvectra-docs-only`; no headers are needed.
+
+| Client | Add the documentation connection | Official setup |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs-only https://docs.blockvectra.com/mcp/docs` | [HTTP](https://code.claude.com/docs/en/mcp#option-1-add-a-remote-http-server) |
+| Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
+| Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+
+Then ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
+
+Packaged plugins and stdio commands keep their existing scopes. With ToolHive, keep `--target-uri` set to the origin and put `/mcp/docs` on the loopback client URL.
 
 The server enforces the two-tool scope, including when a key is supplied. For chain discovery, RPC, indexed data or account tools, use the full `https://docs.blockvectra.com/mcp` connection described below. Keep the two connections under separate names if you need both.
 

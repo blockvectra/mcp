@@ -8,7 +8,18 @@
 
 需要带来源链接的接入说明时，可通过 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp/docs`。它只提供 `search_docs` 和 `read_doc`，不需要 BlockVectra 账号或 API key，也不需要安装本地桥接或软件包。
 
-下方直接设置远程 URL 的客户端可改用该地址，服务名另用 `blockvectra-docs-only`。软件包插件和 stdio 命令仍保持各自原有范围。使用 ToolHive 时，`--target-uri` 仍只填 origin，把本地客户端 URL 的路径改为 `/mcp/docs`。可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
+按已安装的客户端选择下面的入口，均以 `blockvectra-docs-only` 添加文档连接，无需请求头。
+
+| 客户端 | 添加文档连接 | 官方说明 |
+| --- | --- | --- |
+| Claude Code | `claude mcp add --transport http blockvectra-docs-only https://docs.blockvectra.com/mcp/docs` | [HTTP](https://code.claude.com/docs/en/mcp#option-1-add-a-remote-http-server) |
+| Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
+| Cursor | [添加到 Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
+| VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+
+然后可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
+
+软件包插件和 stdio 命令仍保持各自原有范围。使用 ToolHive 时，`--target-uri` 仍只填 origin，把本地客户端 URL 的路径改为 `/mcp/docs`。
 
 双工具范围由服务器强制执行，提供 key 也不会增加工具。需要链发现、RPC、索引数据或账户工具时，使用下方完整的 `https://docs.blockvectra.com/mcp` 连接；同时使用两种连接时，保留不同服务名。
 
