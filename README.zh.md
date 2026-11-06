@@ -16,7 +16,13 @@ Registry 中 `com.blockvectra/docs` 的 `2.0.0` 版本指向这个双工具文�
 
 ## 用 Python 完成第一次文档读取
 
-准备 Python 3.11+、Git 和 [uv](https://docs.astral.sh/uv/)，运行 [Python MCP 示例固定版](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06)：
+准备 Python 3.11+ 和 [uv](https://docs.astral.sh/uv/)，即可直接运行固定提交的示例，无需 Git 或克隆仓库：
+
+```bash
+uv run --script https://raw.githubusercontent.com/blockvectra/agent-quickstart/07b2d89f0ab9129c011d8b135dec441c6bde1f04/examples/mcp_docs.py
+```
+
+需要在本地阅读或修改示例时，也可使用[固定版本 Git checkout](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06)：
 
 ```bash
 git clone --branch python-mcp-docs-2026.11.06 --depth 1 https://github.com/blockvectra/agent-quickstart.git
