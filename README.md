@@ -14,6 +14,18 @@ The server enforces the two-tool scope, including when a key is supplied. For ch
 
 Registry version `2.0.0` of `com.blockvectra/docs` points to this two-tool documentation endpoint. Existing `1.x` registry versions describe the full `/mcp` endpoint; use `/mcp` directly when you need discovery, RPC or authenticated data tools.
 
+## First documentation read with Python
+
+With Python 3.11+, Git and [uv](https://docs.astral.sh/uv/), run the [fixed-version Python MCP example](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06):
+
+```bash
+git clone --branch python-mcp-docs-2026.11.06 --depth 1 https://github.com/blockvectra/agent-quickstart.git
+cd agent-quickstart
+uv run examples/mcp_docs.py
+```
+
+uv installs the pinned `mcp==2.3.0` client dependency. The example connects to `/mcp/docs`, lists `search_docs` and `read_doc`, then reads the English `quickstart` page. It prints JSON with the tool names and full Markdown text. No BlockVectra account, API key, wallet or model API is needed; this task only reads documentation.
+
 ## Robinhood Chain mainnet and testnet tasks
 
 Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain/) for mainnet public read-only RPC tasks. Use the [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/) and [faucet guide](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/) for testnet tasks. Mainnet public reads do not require claiming testnet tokens first.
