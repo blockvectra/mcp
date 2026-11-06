@@ -16,7 +16,13 @@ Registry version `2.0.0` of `com.blockvectra/docs` points to this two-tool docum
 
 ## First documentation read with Python
 
-With Python 3.11+, Git and [uv](https://docs.astral.sh/uv/), run the [fixed-version Python MCP example](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06):
+With Python 3.11+ and [uv](https://docs.astral.sh/uv/), run the example directly from its fixed commit; no Git checkout is needed:
+
+```bash
+uv run --script https://raw.githubusercontent.com/blockvectra/agent-quickstart/07b2d89f0ab9129c011d8b135dec441c6bde1f04/examples/mcp_docs.py
+```
+
+To inspect or edit the example locally, use the [fixed-version Git checkout](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06):
 
 ```bash
 git clone --branch python-mcp-docs-2026.11.06 --depth 1 https://github.com/blockvectra/agent-quickstart.git
