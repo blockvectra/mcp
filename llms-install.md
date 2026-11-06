@@ -2,6 +2,14 @@
 
 Connect to `https://docs.blockvectra.com/mcp` using **Streamable HTTP**. The server is hosted remotely; no local server process is needed.
 
+## Choose the connection scope
+
+For documentation only, use `https://docs.blockvectra.com/mcp/docs` with Streamable HTTP and a distinct name such as `blockvectra-docs-only`. The server exposes only `search_docs` and `read_doc`; no BlockVectra account, API key, local bridge or package installation is needed. Supplying a key does not expand that scope.
+
+The instructions below configure the full `/mcp` connection. For a documentation-only remote connection, substitute the `/mcp/docs` URL and the distinct server name in your client's remote settings. Verify it with `read_doc({"path":"guides/mcp-server","lang":"en"})`; skip the chain-discovery and API-key steps. With ToolHive, keep `--target-uri` set to the origin and put `/mcp/docs` on the loopback client URL. Local stdio commands and packaged plugins below keep their existing scopes.
+
+Use the full `https://docs.blockvectra.com/mcp` connection for chain discovery, RPC, indexed data or account tools. Keep separate names if you configure both.
+
 ## Cline
 
 1. Open **MCP Servers** in Cline, then the **Remote Servers** tab.
