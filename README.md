@@ -50,6 +50,8 @@ To read another chain, pass its decimal chain ID: `node src/public-read-cli.ts 5
 
 No dependency installation, wallet, account or API key is needed. The reader checks the chain directory, verifies the chain ID, then reads the latest block number: at most three HTTP requests, including two RPC calls. It stops before RPC if the directory does not advertise the required public endpoint and methods.
 
+Related case study: [An RPC failure is not an empty event range](guides/rpc-scan-coverage.md) — an upstream-merged fix with offline regressions and explicit coverage limits.
+
 ## Read HoodFi name records on Robinhood Chain
 
 For an address stored under a HoodFi name, follow the [HoodFi name-record guide](https://docs.blockvectra.com/en/guides/hoodfi-name-records/?ref=gh-mcp-hoodfi). It selects Robinhood coin type `2147488311` and compares coin type `60` at the same canonical block hash. A missing or invalid Robinhood record stops the read; coin type 60 is not a fallback. If the records differ, confirm the Robinhood destination before using it.
