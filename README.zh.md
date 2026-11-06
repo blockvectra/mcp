@@ -4,6 +4,14 @@
 
 [English](README.md)
 
+## 仅查文档的远程连接
+
+需要带来源链接的接入说明时，可通过 Streamable HTTP 直接连接 `https://docs.blockvectra.com/mcp/docs`。它只提供 `search_docs` 和 `read_doc`，不需要 BlockVectra 账号或 API key，也不需要安装本地桥接或软件包。
+
+下方直接设置远程 URL 的客户端可改用该地址，服务名另用 `blockvectra-docs-only`。软件包插件和 stdio 命令仍保持各自原有范围。使用 ToolHive 时，`--target-uri` 仍只填 origin，把本地客户端 URL 的路径改为 `/mcp/docs`。可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
+
+双工具范围由服务器强制执行，提供 key 也不会增加工具。需要链发现、RPC、索引数据或账户工具时，使用下方完整的 `https://docs.blockvectra.com/mcp` 连接；同时使用两种连接时，保留不同服务名。
+
 ## Robinhood Chain 主网与测试网任务导航
 
 主网公共只读 RPC 任务请阅读[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)；测试网任务请阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)和[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)。主网公共读取无需先领取测试币。

@@ -4,6 +4,14 @@ Remote [Model Context Protocol](https://modelcontextprotocol.io) server for [Blo
 
 [中文](README.zh.md)
 
+## Documentation-only remote connection
+
+For setup answers with source links, connect directly to `https://docs.blockvectra.com/mcp/docs` using Streamable HTTP. It exposes only `search_docs` and `read_doc`, needs no BlockVectra account or API key, and requires no local bridge or package installation.
+
+For remote URL settings below, use this URL and a distinct server name such as `blockvectra-docs-only`. Packaged plugins and stdio commands keep their existing scopes. With ToolHive, keep `--target-uri` set to the origin and put `/mcp/docs` on the loopback client URL. Ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
+
+The server enforces the two-tool scope, including when a key is supplied. For chain discovery, RPC, indexed data or account tools, use the full `https://docs.blockvectra.com/mcp` connection described below. Keep the two connections under separate names if you need both.
+
 ## Robinhood Chain mainnet and testnet tasks
 
 Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain/) for mainnet public read-only RPC tasks. Use the [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/) and [faucet guide](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/) for testnet tasks. Mainnet public reads do not require claiming testnet tokens first.
