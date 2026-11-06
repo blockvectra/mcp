@@ -50,6 +50,8 @@ node src/public-read-cli.ts
 
 无需安装依赖、钱包、账户或 API key。程序读取链目录、核对链 ID，再读取最新块号，最多三个 HTTP 请求，其中两个是 RPC。若目录未声明所需公共端点和方法，会在 RPC 前停止。
 
+相关案例：[RPC 失败不等于事件为空](guides/rpc-scan-coverage.zh.md)，附上游已合入修复、离线回归和覆盖边界。
+
 ## 读取 Robinhood Chain 上的 HoodFi 名称记录
 
 查询 HoodFi 名称保存的地址，请使用 [HoodFi 名称记录指南](https://docs.blockvectra.com/zh/guides/hoodfi-name-records/?ref=gh-mcp-hoodfi)。指南选取 Robinhood coin type `2147488311`，并在同一 canonical block hash 比较 coin type `60`。Robinhood 记录缺失或无效时停止，不能回退到 coin type 60；两条记录不同时，先确认 Robinhood 收款地址再使用。
