@@ -12,6 +12,8 @@ For remote URL settings below, use this URL and a distinct server name such as `
 
 The server enforces the two-tool scope, including when a key is supplied. For chain discovery, RPC, indexed data or account tools, use the full `https://docs.blockvectra.com/mcp` connection described below. Keep the two connections under separate names if you need both.
 
+Registry version `2.0.0` of `com.blockvectra/docs` points to this two-tool documentation endpoint. Existing `1.x` registry versions describe the full `/mcp` endpoint; use `/mcp` directly when you need discovery, RPC or authenticated data tools.
+
 ## Robinhood Chain mainnet and testnet tasks
 
 Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain/) for mainnet public read-only RPC tasks. Use the [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/) and [faucet guide](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/) for testnet tasks. Mainnet public reads do not require claiming testnet tokens first.

@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.blockvectra/docs",
-  "title": "BlockVectra: multi-chain RPC & Data API",
-  "description": "Keyless Robinhood Chain/EVM docs. RPC per-chain policy; indexed data/account need an API key.",
-  "version": "1.2.1-metadata.4",
+  "title": "BlockVectra Docs: Robinhood Chain & EVM",
+  "description": "Search and read Robinhood Chain and EVM RPC/API docs. No account, API key or local install.",
+  "version": "2.0.0",
   "websiteUrl": "https://blockvectra.com/en/agents/?ref=official-mcp-registry",
   "repository": {
     "url": "https://github.com/blockvectra/mcp",
@@ -12,15 +12,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://docs.blockvectra.com/mcp",
-      "headers": [
-        {
-          "name": "x-api-key",
-          "description": "Optional API key for authenticated tools. Without a key, docs and discovery remain available; RPC availability follows each chain's public policy.",
-          "isRequired": false,
-          "isSecret": true
-        }
-      ]
+      "url": "https://docs.blockvectra.com/mcp/docs"
     }
   ]
 }

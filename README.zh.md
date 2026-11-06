@@ -12,6 +12,8 @@
 
 双工具范围由服务器强制执行，提供 key 也不会增加工具。需要链发现、RPC、索引数据或账户工具时，使用下方完整的 `https://docs.blockvectra.com/mcp` 连接；同时使用两种连接时，保留不同服务名。
 
+Registry 中 `com.blockvectra/docs` 的 `2.0.0` 版本指向这个双工具文档入口。既有 `1.x` 版本描述完整 `/mcp` 入口；需要发现、RPC 或需鉴权的数据工具时，请直接使用 `/mcp`。
+
 ## Robinhood Chain 主网与测试网任务导航
 
 主网公共只读 RPC 任务请阅读[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)；测试网任务请阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)和[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)。主网公共读取无需先领取测试币。
