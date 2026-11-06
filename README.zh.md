@@ -14,6 +14,18 @@
 
 Registry 中 `com.blockvectra/docs` 的 `2.0.0` 版本指向这个双工具文档入口。既有 `1.x` 版本描述完整 `/mcp` 入口；需要发现、RPC 或需鉴权的数据工具时，请直接使用 `/mcp`。
 
+## 用 Python 完成第一次文档读取
+
+准备 Python 3.11+、Git 和 [uv](https://docs.astral.sh/uv/)，运行 [Python MCP 示例固定版](https://github.com/blockvectra/agent-quickstart/releases/tag/python-mcp-docs-2026.11.06)：
+
+```bash
+git clone --branch python-mcp-docs-2026.11.06 --depth 1 https://github.com/blockvectra/agent-quickstart.git
+cd agent-quickstart
+uv run examples/mcp_docs.py
+```
+
+uv 会安装固定的 `mcp==2.3.0` 客户端依赖。示例连接 `/mcp/docs`，列出 `search_docs` 和 `read_doc`，然后读取英文 `quickstart`，输出包含工具名和完整 Markdown 正文的 JSON。无需 BlockVectra 账号、API key、钱包或模型 API；这个任务只读取文档。
+
 ## Robinhood Chain 主网与测试网任务导航
 
 主网公共只读 RPC 任务请阅读[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)；测试网任务请阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)和[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)。主网公共读取无需先领取测试币。
