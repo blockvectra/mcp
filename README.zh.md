@@ -209,13 +209,13 @@ goose run --recipe blockvectra-goose-docs.json
 
 它先用 `search_docs` 查找 Robinhood Chain 主网接入文档，再用 `read_doc` 读取其中一页。recipe 只列出这两个工具，不包含 RPC、账号或交易工具。成功结果应引用文档，并说明哪些接入步骤需要 key。模型调用仍使用你在 goose 配置的额度或计费方案。
 
-如果需要交互会话，可以仅为本次会话连接远程扩展：
+如果只需交互式查阅文档，无需下载 recipe，直接连接服务端限定范围的文档入口：
 
 ```bash
-goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp"
+goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp/docs"
 ```
 
-该会话会发现完整工具目录；文档 recipe 是工具范围更小的起点。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
+该 MCP 连接只提供 `search_docs` 和 `read_doc`。让 goose 查找 Robinhood Chain 接入指南、阅读并引用来源。需要链发现、RPC、索引数据或账号工具时，改用完整的 `https://docs.blockvectra.com/mcp` URL；认证遵循上文的工具与链策略。上面固定版本的 recipe 仍是连接完整入口的双工具 recipe。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
 
 ## ToolHive：本地 HTTP 代理
 
