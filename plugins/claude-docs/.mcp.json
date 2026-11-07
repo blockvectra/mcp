@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "blockvectra-docs-only": {
+      "type": "http",
+      "url": "https://docs.blockvectra.com/mcp/docs"
+    }
+  }
+}
