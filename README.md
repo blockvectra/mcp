@@ -16,6 +16,7 @@ Choose your installed client below. Each entry adds the documentation endpoint a
 | Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+| OpenCode | [Project configuration](#opencode-docs-only) | [OpenCode MCP servers](https://opencode.ai/docs/mcp-servers/) |
 
 Then ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
 
@@ -24,6 +25,31 @@ Packaged plugins and stdio commands keep their existing scopes. With ToolHive, k
 The server enforces the two-tool scope, including when a key is supplied. For chain discovery, RPC, indexed data or account tools, use the full `https://docs.blockvectra.com/mcp` connection described below. Keep the two connections under separate names if you need both.
 
 Registry version `2.0.0` of `com.blockvectra/docs` points to this two-tool documentation endpoint. Existing `1.x` registry versions describe the full `/mcp` endpoint; use `/mcp` directly when you need discovery, RPC or authenticated data tools.
+
+### OpenCode (docs-only)
+
+Check `opencode --version`, then merge this server into your project's existing `opencode.json` rather than replacing the file. No BlockVectra account or key is needed for the docs-only connection; your model client or provider is configured separately.
+
+**OpenCode 2** puts the server under `mcp.servers`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "blockvectra-docs-only": {
+        "type": "remote",
+        "url": "https://docs.blockvectra.com/mcp/docs",
+        "oauth": false
+      }
+    }
+  }
+}
+```
+
+**OpenCode 1** places the same object directly under `mcp` (`mcp.blockvectra-docs-only`).
+
+Run `opencode mcp list` from the project and confirm `blockvectra-docs-only` is connected. See the official [v2](https://opencode.ai/docs/mcp-servers/) and [v1](https://docs.opencode.ai/docs/mcp-servers/) MCP guides for your version.
 
 ## First documentation read with Python
 

@@ -16,6 +16,7 @@
 | Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
 | Cursor | [添加到 Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+| OpenCode | [项目配置](#opencode-仅文档连接) | [OpenCode MCP 服务](https://opencode.ai/docs/mcp-servers/) |
 
 然后可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
 
@@ -24,6 +25,31 @@
 双工具范围由服务器强制执行，提供 key 也不会增加工具。需要链发现、RPC、索引数据或账户工具时，使用下方完整的 `https://docs.blockvectra.com/mcp` 连接；同时使用两种连接时，保留不同服务名。
 
 Registry 中 `com.blockvectra/docs` 的 `2.0.0` 版本指向这个双工具文档入口。既有 `1.x` 版本描述完整 `/mcp` 入口；需要发现、RPC 或需鉴权的数据工具时，请直接使用 `/mcp`。
+
+### OpenCode 仅文档连接
+
+先用 `opencode --version` 查看版本，再把该服务合并到项目现有的 `opencode.json`，不要替换文件中的其他配置。仅文档连接不需要 BlockVectra 账号或 key；模型客户端或提供方单独配置。
+
+**OpenCode 2** 把服务放在 `mcp.servers` 下：
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "blockvectra-docs-only": {
+        "type": "remote",
+        "url": "https://docs.blockvectra.com/mcp/docs",
+        "oauth": false
+      }
+    }
+  }
+}
+```
+
+**OpenCode 1** 把同一对象直接放在 `mcp` 下（`mcp.blockvectra-docs-only`）。
+
+在该项目运行 `opencode mcp list`，确认 `blockvectra-docs-only` 已连接。按版本参阅官方 [v2](https://opencode.ai/docs/mcp-servers/) 与 [v1](https://docs.opencode.ai/docs/mcp-servers/) MCP 指南。
 
 ## 用 Python 完成第一次文档读取
 
