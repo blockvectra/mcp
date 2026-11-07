@@ -220,7 +220,7 @@ For an interactive documentation session without downloading a recipe, use the s
 goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp/docs"
 ```
 
-This session exposes only `search_docs` and `read_doc`. Ask goose to find the Robinhood Chain setup guide, read it, and cite the source. For chain discovery, RPC, indexed data or account tools, substitute the full `https://docs.blockvectra.com/mcp` URL; authentication follows the tool and chain policies above. The pinned recipe remains a separate two-tool recipe on the full endpoint. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
+This MCP connection exposes only `search_docs` and `read_doc`. Ask goose to find the Robinhood Chain setup guide, read it, and cite the source. For chain discovery, RPC, indexed data or account tools, substitute the full `https://docs.blockvectra.com/mcp` URL; authentication follows the tool and chain policies above. The pinned recipe remains a separate two-tool recipe on the full endpoint. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
 
 ## ToolHive: local HTTP proxy
 

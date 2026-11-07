@@ -215,7 +215,7 @@ goose run --recipe blockvectra-goose-docs.json
 goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp/docs"
 ```
 
-该会话只提供 `search_docs` 和 `read_doc`。让 goose 查找 Robinhood Chain 接入指南、阅读并引用来源。需要链发现、RPC、索引数据或账号工具时，改用完整的 `https://docs.blockvectra.com/mcp` URL；认证遵循上文的工具与链策略。上面固定版本的 recipe 仍是连接完整入口的双工具 recipe。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
+该 MCP 连接只提供 `search_docs` 和 `read_doc`。让 goose 查找 Robinhood Chain 接入指南、阅读并引用来源。需要链发现、RPC、索引数据或账号工具时，改用完整的 `https://docs.blockvectra.com/mcp` URL；认证遵循上文的工具与链策略。上面固定版本的 recipe 仍是连接完整入口的双工具 recipe。参见 [goose 扩展说明](https://goose-docs.ai/docs/getting-started/using-extensions/)和 [recipe 参考](https://goose-docs.ai/docs/guides/recipes/recipe-reference/)。
 
 ## ToolHive：本地 HTTP 代理
 
