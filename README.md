@@ -214,13 +214,13 @@ goose run --recipe blockvectra-goose-docs.json
 
 It asks `search_docs` for Robinhood Chain mainnet setup, then reads one returned document with `read_doc`. The recipe lists only those two tools; it does not include RPC, account or transaction tools. A successful result should cite the document and explain which connection steps need a key. The model uses your goose provider's normal quota or billing.
 
-For an interactive session instead, add the remote extension for that session:
+For an interactive documentation session without downloading a recipe, use the server-scoped documentation endpoint:
 
 ```bash
-goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp"
+goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp/docs"
 ```
 
-That session discovers the full tool catalog; the recipe is the smaller documentation-only starting point. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
+This session exposes only `search_docs` and `read_doc`. Ask goose to find the Robinhood Chain setup guide, read it, and cite the source. For chain discovery, RPC, indexed data or account tools, substitute the full `https://docs.blockvectra.com/mcp` URL; authentication follows the tool and chain policies above. The pinned recipe remains a separate two-tool recipe on the full endpoint. See the [goose extension guide](https://goose-docs.ai/docs/getting-started/using-extensions/) and [recipe reference](https://goose-docs.ai/docs/guides/recipes/recipe-reference/).
 
 ## ToolHive: local HTTP proxy
 

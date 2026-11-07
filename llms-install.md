@@ -73,6 +73,18 @@ With your model provider configured in Kilo, start `kilo` in the project and ask
 
 This documentation task needs no BlockVectra account, wallet or API key. `kilo mcp list` checks the connection without calling a model; the documentation task uses the model provider you configure in Kilo. For config paths and private header configuration, see the [official Kilo MCP guide](https://kilo.ai/docs/automate/mcp/using-in-cli).
 
+## goose
+
+With goose installed and your model provider configured, start a documentation-only session without downloading a recipe or installing a local bridge:
+
+```bash
+goose session --with-streamable-http-extension "https://docs.blockvectra.com/mcp/docs"
+```
+
+Ask goose to find the Robinhood Chain setup guide, read one returned page, and cite the source. This endpoint exposes only `search_docs` and `read_doc`; it needs no BlockVectra account or API key. Model usage follows your goose provider's quota or billing.
+
+For chain discovery, RPC, indexed data or account tools, substitute `https://docs.blockvectra.com/mcp`; those tools retain their own authentication and public-method policies. See the [goose setup and optional recipe](README.md#goose-keyless-documentation-lookup) and the [official Streamable HTTP command](https://github.com/aaif-goose/goose/blob/4facf56cbab049142809d9afa4648ebe6823ba80/documentation/docs/getting-started/using-extensions.md#remote-extensions-over-streamable-http).
+
 ## OpenCode
 
 Check `opencode --version`, then follow the [versioned OpenCode configuration](README.md#opencode-opencodejson). OpenCode 1 and 2 use different configuration layouts; keep your existing settings and servers.
