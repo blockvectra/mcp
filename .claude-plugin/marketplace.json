@@ -18,6 +18,11 @@
       },
       "description": "Agent skill for BlockVectra: keyless docs and discovery, RPC under each chain's public policy, and indexed data and account tools requiring an API key.",
       "skills": ["./"]
+    },
+    {
+      "name": "blockvectra-docs-only",
+      "source": "./plugins/claude-docs",
+      "description": "Documentation-only BlockVectra docs MCP server exposing search_docs and read_doc over the hosted docs endpoint."
     }
   ]
 }

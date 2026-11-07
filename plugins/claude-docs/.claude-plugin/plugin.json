@@ -1,0 +1,17 @@
+{
+  "name": "blockvectra-docs-only",
+  "version": "1.0.0",
+  "description": "Search and read BlockVectra documentation through a hosted MCP endpoint.",
+  "author": {
+    "name": "BlockVectra"
+  },
+  "homepage": "https://docs.blockvectra.com/en/",
+  "repository": "https://github.com/blockvectra/mcp",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "search",
+    "mcp",
+    "blockvectra"
+  ]
+}
