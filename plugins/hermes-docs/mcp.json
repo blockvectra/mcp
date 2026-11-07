@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "blockvectra-docs-only": {
+      "type": "streamable-http",
+      "url": "https://docs.blockvectra.com/mcp/docs"
+    }
+  }
+}

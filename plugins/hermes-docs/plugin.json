@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "blockvectra-docs-only",
+  "version": "1.0.0",
+  "description": "Search and read BlockVectra documentation through a hosted MCP endpoint.",
+  "author": {
+    "name": "BlockVectra",
+    "email": "blockvectra@gmail.com",
+    "url": "https://blockvectra.com"
+  },
+  "homepage": "https://docs.blockvectra.com/en/",
+  "repository": "https://github.com/blockvectra/mcp",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "search",
+    "mcp",
+    "blockvectra"
+  ],
+  "extensions": {
+    "com.nousresearch.hermes": {
+      "servers": {
+        "blockvectra-docs-only": {
+          "trust": "untrusted"
+        }
+      }
+    }
+  }
+}
