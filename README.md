@@ -16,7 +16,10 @@ Choose your installed client below. Each entry adds the documentation endpoint a
 | Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
 | Cursor | [Add to Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+| Gemini CLI | `gemini mcp add --transport http --scope project blockvectra-docs-only https://docs.blockvectra.com/mcp/docs` | [MCP](https://geminicli.com/docs/tools/mcp-server/#adding-a-server-gemini-mcp-add) |
 | OpenCode | [Project configuration](#opencode-docs-only) | [OpenCode MCP servers](https://opencode.ai/docs/mcp-servers/) |
+
+For Gemini CLI, run the command from a trusted project directory. It adds the connection to the project's `.gemini/settings.json`; configure your model provider separately.
 
 Then ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
 
