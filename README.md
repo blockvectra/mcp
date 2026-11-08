@@ -363,7 +363,9 @@ Note: `get_deposit_address` and the other keyed tools return an error that point
 
 ## Use in Cursor / Cline
 
-The keyless Cursor configuration is in [`.mcp.json`](.mcp.json), referenced by the [Cursor plugin manifest](.cursor-plugin/plugin.json). For Cline's Streamable HTTP setup and optional `x-api-key` headers, follow [llms-install.md](llms-install.md). Terminal users can use the [Cline CLI install command and first documentation read](llms-install.md#cline-cli). Start without headers: call `list_chains`, then `read_doc` with `{"path":"quickstart","lang":"en"}`.
+The [Cursor plugin](.cursor-plugin/plugin.json) uses [docs.mcp.json](docs.mcp.json) for the documentation-only connection: `search_docs` and `read_doc`, with no BlockVectra account or API key. Start with `search_docs` using `{"query":"Robinhood Chain"}`, or `read_doc` using `{"path":"quickstart","lang":"en"}`.
+
+For chain discovery and RPC tools, use the full-server configuration in [`.mcp.json`](.mcp.json). For Cline's full-server Streamable HTTP setup and optional `x-api-key` headers, follow [llms-install.md](llms-install.md). Terminal users can use the [Cline CLI install command and first documentation read](llms-install.md#cline-cli). Start without headers: call `list_chains`, then `read_doc` with `{"path":"quickstart","lang":"en"}`.
 
 ## Kilo CLI: project connection
 
