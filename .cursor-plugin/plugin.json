@@ -1,7 +1,7 @@
 {
   "name": "blockvectra-docs",
-  "version": "1.2.0",
-  "description": "Chains, methods, pricing, status and docs for developers and AI agents, plus keyless read-only JSON-RPC calls.",
+  "version": "2.0.0",
+  "description": "Search and read BlockVectra RPC and Data API documentation with two tools. No BlockVectra account or API key is required.",
   "author": {
     "name": "BlockVectra"
   },
@@ -13,5 +13,5 @@
     "json-rpc",
     "data-api"
   ],
-  "mcpServers": ".mcp.json"
+  "mcpServers": "docs.mcp.json"
 }
