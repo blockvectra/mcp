@@ -16,7 +16,10 @@
 | Codex | `codex mcp add blockvectra-docs-only --url https://docs.blockvectra.com/mcp/docs` | [MCP](https://developers.openai.com/learn/docs-mcp) |
 | Cursor | [添加到 Cursor](https://cursor.com/link/mcp/install?name=blockvectra-docs-only&config=eyJ1cmwiOiJodHRwczovL2RvY3MuYmxvY2t2ZWN0cmEuY29tL21jcC9kb2NzIn0%3D) | [Install links](https://cursor.com/docs/mcp/install-links) |
 | VS Code | `code --add-mcp '{"name":"blockvectra-docs-only","type":"http","url":"https://docs.blockvectra.com/mcp/docs"}'` | [MCP](https://code.visualstudio.com/api/extension-guides/ai/mcp#add-mcp-servers-to-vs-code) |
+| Gemini CLI | `gemini mcp add --transport http --scope project blockvectra-docs-only https://docs.blockvectra.com/mcp/docs` | [MCP](https://geminicli.com/docs/tools/mcp-server/#adding-a-server-gemini-mcp-add) |
 | OpenCode | [项目配置](#opencode-仅文档连接) | [OpenCode MCP 服务](https://opencode.ai/docs/mcp-servers/) |
+
+Gemini CLI 请在受信任的项目目录中执行；命令将连接写入项目的 `.gemini/settings.json`，模型提供方需另行配置。
 
 然后可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
 

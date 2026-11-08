@@ -10,6 +10,16 @@ The instructions below configure the full `/mcp` connection. For a documentation
 
 Use the full `https://docs.blockvectra.com/mcp` connection for chain discovery, RPC, indexed data or account tools. Keep separate names if you configure both.
 
+## Gemini CLI documentation connection
+
+From a trusted project directory, add the two-tool documentation connection:
+
+```bash
+gemini mcp add --transport http --scope project blockvectra-docs-only https://docs.blockvectra.com/mcp/docs
+```
+
+This writes the connection to the project's `.gemini/settings.json`. Configure your model provider separately, then use `search_docs` and `read_doc` for source-linked setup answers. See [Gemini CLI MCP setup](https://geminicli.com/docs/tools/mcp-server/#adding-a-server-gemini-mcp-add).
+
 ## Cline
 
 1. Open **MCP Servers** in Cline, then the **Remote Servers** tab.
