@@ -21,6 +21,8 @@
 
 Gemini CLI 请在受信任的项目目录中执行；命令将连接写入项目的 `.gemini/settings.json`，模型提供方需另行配置。
 
+首次读取时，让 Agent 先用任务描述调用 `search_docs`，再用结果中的 `path` 和相同的 `lang` 调用 `read_doc`。想直接读快速开始，调用 `read_doc`，参数为 `{"path":"quickstart","lang":"zh"}`。 可运行示例见[文档指南](https://docs.blockvectra.com/zh/guides/mcp-server/)。
+
 然后可以问：“查找并读取 Robinhood Chain 接入指南，引用来源，区分主网与测试网；不要执行 RPC 或发送交易。”
 
 软件包插件和 stdio 命令仍保持各自原有范围。使用 ToolHive 时，`--target-uri` 仍只填 origin，把本地客户端 URL 的路径改为 `/mcp/docs`。

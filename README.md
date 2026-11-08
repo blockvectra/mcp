@@ -21,6 +21,8 @@ Choose your installed client below. Each entry adds the documentation endpoint a
 
 For Gemini CLI, run the command from a trusted project directory. It adds the connection to the project's `.gemini/settings.json`; configure your model provider separately.
 
+For a first read, ask your agent to call `search_docs` with your task, then call `read_doc` with the `path` from a result and the same `lang`. To read the quickstart directly, call `read_doc` with `{"path":"quickstart","lang":"en"}`. For a runnable example, see the [documentation guide](https://docs.blockvectra.com/en/guides/mcp-server/).
+
 Then ask: "Find the Robinhood Chain setup guide, read it, and cite the source. Separate mainnet from testnet; do not run RPC or send a transaction."
 
 Packaged plugins and stdio commands keep their existing scopes. With ToolHive, keep `--target-uri` set to the origin and put `/mcp/docs` on the loopback client URL.
