@@ -20,6 +20,16 @@ gemini mcp add --transport http --scope project blockvectra-docs-only https://do
 
 This writes the connection to the project's `.gemini/settings.json`. Configure your model provider separately, then use `search_docs` and `read_doc` for source-linked setup answers. See [Gemini CLI MCP setup](https://geminicli.com/docs/tools/mcp-server/#adding-a-server-gemini-mcp-add).
 
+## Pydantic AI
+
+For a Pydantic AI project, run the [fixed-version example](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/examples/pydantic_docs.py) with Python 3.11+ and uv, without cloning:
+
+```bash
+uv run --no-project --script --python 3.11 https://raw.githubusercontent.com/blockvectra/agent-quickstart/1f14f9ec159ed5f3d417876167cdb37e13579c8d/examples/pydantic_docs.py
+```
+
+It uses `MCPToolset` with pinned `pydantic-ai-slim[mcp]==2.66.0`, `fastmcp==4.1.6` and `mcp==2.3.0` to search for `quickstart` and read that English page. It prints the Markdown in JSON and needs no model, BlockVectra account, wallet or API key. The toolset closes on success or failure. See the [example's setup and timeout details](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/README.md#read-documentation-with-pydantic-ai). This is a direct documentation-tool read, not a model-driven agent run.
+
 ## Cline
 
 1. Open **MCP Servers** in Cline, then the **Remote Servers** tab.

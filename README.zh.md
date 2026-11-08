@@ -72,6 +72,16 @@ uv run examples/mcp_docs.py
 
 uv 会安装固定的 `mcp==2.3.0` 客户端依赖。示例连接 `/mcp/docs`，列出 `search_docs` 和 `read_doc`，然后读取英文 `quickstart`，输出包含工具名和完整 Markdown 正文的 JSON。无需 BlockVectra 账号、API key、钱包或模型 API；这个任务只读取文档。
 
+### Pydantic AI
+
+Pydantic AI 项目可用 Python 3.11+ 和 uv 直接运行[固定版本示例](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/examples/pydantic_docs.py)，无需克隆仓库：
+
+```bash
+uv run --no-project --script --python 3.11 https://raw.githubusercontent.com/blockvectra/agent-quickstart/1f14f9ec159ed5f3d417876167cdb37e13579c8d/examples/pydantic_docs.py
+```
+
+示例使用 `MCPToolset`，固定 `pydantic-ai-slim[mcp]==2.66.0`、`fastmcp==4.1.6` 和 `mcp==2.3.0`，搜索 `quickstart` 后读取英文页面，将 Markdown 放在 JSON 中输出。无需模型、BlockVectra 账户、钱包或 API key；成功或失败都会退出并释放 toolset。准备步骤与超时说明见[示例文档](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/README.zh.md#用-pydantic-ai-读取文档)。这是直接调用文档工具，不运行模型驱动的 Agent。
+
 ## Robinhood Chain 主网与测试网任务导航
 
 主网公共只读 RPC 任务请阅读[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)；测试网任务请阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)和[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)。主网公共读取无需先领取测试币。
