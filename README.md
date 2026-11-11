@@ -84,6 +84,13 @@ uv run --no-project --script --python 3.11 https://raw.githubusercontent.com/blo
 
 It uses `MCPToolset` with pinned `pydantic-ai-slim[mcp]==2.66.0`, `fastmcp==4.1.6` and `mcp==2.3.0` to search for `quickstart` and read that English page. It prints the Markdown in JSON and needs no model, BlockVectra account, wallet or API key. The toolset closes on success or failure. See the [example's setup and timeout details](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/README.md#read-documentation-with-pydantic-ai). This is a direct documentation-tool read, not a model-driven agent run.
 
+### OpenAI Agents SDK and mcp-use
+
+- **Python / OpenAI Agents SDK**: follow the [search-and-read example](https://github.com/blockvectra/agent-quickstart/blob/c4c0d5c81c5518add7f0f204a77f42934d183588/README.md#read-documentation-with-the-openai-agents-sdk) for setup and the run command.
+- **Node.js / mcp-use**: follow the [standalone npm example](https://github.com/blockvectra/agent-quickstart/blob/c4c0d5c81c5518add7f0f204a77f42934d183588/README.md#read-documentation-with-mcp-use-nodejs) for its Node.js requirements, installation and run commands.
+
+Both examples connect to `/mcp/docs`, search the documentation and read a returned page without a model or BlockVectra credentials.
+
 ## Robinhood Chain mainnet and testnet tasks
 
 Use the [chain RPC guide](https://docs.blockvectra.com/en/guides/robinhood-chain/) for mainnet public read-only RPC tasks. Use the [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/) and [faucet guide](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/) for testnet tasks. Mainnet public reads do not require claiming testnet tokens first.
