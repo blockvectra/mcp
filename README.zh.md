@@ -84,6 +84,13 @@ uv run --no-project --script --python 3.11 https://raw.githubusercontent.com/blo
 
 示例使用 `MCPToolset`，固定 `pydantic-ai-slim[mcp]==2.66.0`、`fastmcp==4.1.6` 和 `mcp==2.3.0`，搜索 `quickstart` 后读取英文页面，将 Markdown 放在 JSON 中输出。无需模型、BlockVectra 账户、钱包或 API key；成功或失败都会退出并释放 toolset。准备步骤与超时说明见[示例文档](https://github.com/blockvectra/agent-quickstart/blob/1f14f9ec159ed5f3d417876167cdb37e13579c8d/README.zh.md#用-pydantic-ai-读取文档)。这是直接调用文档工具，不运行模型驱动的 Agent。
 
+### OpenAI Agents SDK 与 mcp-use
+
+- **Python / OpenAI Agents SDK**：按[搜索并读取文档的示例](https://github.com/blockvectra/agent-quickstart/blob/c4c0d5c81c5518add7f0f204a77f42934d183588/README.zh.md#用-openai-agents-sdk-读取文档)准备环境并运行。
+- **Node.js / mcp-use**：按[独立 npm 示例](https://github.com/blockvectra/agent-quickstart/blob/c4c0d5c81c5518add7f0f204a77f42934d183588/README.zh.md#使用-mcp-use-读取文档nodejs)检查 Node.js 版本、安装依赖并运行。
+
+两个示例都连接 `/mcp/docs`，搜索文档后读取返回的页面，无需模型或 BlockVectra 凭据。
+
 ## Robinhood Chain 主网与测试网任务导航
 
 主网公共只读 RPC 任务请阅读[链 RPC 指南](https://docs.blockvectra.com/en/guides/robinhood-chain/)；测试网任务请阅读 [testnet starter](https://docs.blockvectra.com/en/guides/robinhood-testnet-starter/)和[faucet 指南](https://docs.blockvectra.com/en/guides/robinhood-testnet-faucet/)。主网公共读取无需先领取测试币。
